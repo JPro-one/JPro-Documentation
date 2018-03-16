@@ -41,7 +41,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.jprotechnologies.jpro:jpro-plugin-gradle:2018.1.0'
+    classpath 'com.sandec.jpro:jpro-plugin-gradle:2018.1.0'
   }
 }
 
@@ -49,7 +49,7 @@ repositories {
   jcenter()
 }
 
-apply plugin: 'com.jprotechnologies.jpro'
+apply plugin: 'com.sandec.jpro'
 
 mainClassName = 'your.class.Name'
 
@@ -184,8 +184,7 @@ jpro {
   jproVersion = "2018.1.0"            // The jpro version to use.  
 
   openURLOnStartup = false            // This prevents the browser from opening 
-                                      // when the app starts.
-                                      // This might be useful when ... ??    
+                                      // when jproRun is called.    
                                               
   openingPath = /fullscreen/          // A prefix to use for the path in  
                                       // the Url for the browser.
@@ -454,7 +453,10 @@ Other requirements are:
  The setup defined below is tested with the nginx package contained in ubuntu 16.04.
 
  In order to configure nginx for jpro, create the file 
- `/etc/nginx/sites-enabled/jproconf.nginx.conf` with the following content:
+ 
+ `/etc/nginx/sites-enabled/jproconf.nginx.conf` 
+ 
+ with the following content:
  ```
  proxy_buffering    off;
  proxy_set_header   X-Real-IP $remote_addr;
@@ -479,7 +481,7 @@ Other requirements are:
  }
  server {
    listen 80;
-   server_name yourdomain.com;  # Here a list of all domain names to be used for this jpro server #
+   server_name yourdomain.com;  # List all domain names for this server #
    return 301 https://$host$request_uri;
  }
  server {
@@ -501,11 +503,11 @@ Other requirements are:
 ## JPRO CHECKLIST
 When using jpro, please be aware of the following important aspects:
 * Your app **must NOT block** the javafx-thread.  Wait-, sleep-commands, showAndWaits in the javafx-thread are no-nos.
-* Be careful when using dialog boxes. Make sure they dont use showAndWait (see above).
-* Be careful with statics, because they would be shared between multiple instances 
+* Be careful when using **dialog boxes**. Make sure they dont use showAndWait (see above).
+* Be careful with **statics**, because they would be shared between multiple instances 
 (interesting enough, there are use cases in which this fact can be utilized as a very useful feature. 
 But, it is important not to use them in the wrong way.) 
-* Creating additional Stages is not supported.
+* Creating additional **Stages** is not supported.
   The only Stage which can be opended by a Session, is the Stage associated with the `javafx.scene.Application.show` method.
   One alternative is, to create new windows or dialogues by using a StackPane at the root of your application.
 
@@ -529,7 +531,7 @@ I'm using a lot of java libraries in my app, like controlsfx. Do they work in co
 ```
 Does jpro work on mobile browser?
 ```
-* jpro works very well on mobile browsers.
+* jpro works very well on **mobile browsers**.
 
 ```
 Does jpro work in combination with Gluon?
@@ -545,7 +547,7 @@ Does the ScenicView work in combination with jpro?
 How do I handle browser specific differences?
 ```
 * jpro handles most of the browser specifics internally and relieves the developer from those topics.
-NOTE: the code you write in javascript, obviously does not benefit from this, though.
+NOTE: the code you write in javascript, obviously does not benefit from this.
 
 ```
 The first Instance of my application starts fine, but as soon as the second instance is started, strange things happen. What can be the cause?
@@ -553,7 +555,7 @@ The first Instance of my application starts fine, but as soon as the second inst
 * It's most likely related to the use of static variables. In jpro, static variables are shared between multiple sessions. Therefore, variables declared as static become global to all sessions.  This fact can cause problems.  BUT, depending on how you use it, it can also be utilized as a welcomed feature.
 
 ```
-My Application get's slower over time. After a while it some times even crashes. What can be reason for such a behaviour?
+My application slows down over time. After a while it some times even crashes. What could be the reason for such a behaviour?
 ```
 * A common reason for this behaviour is a memory leak in your application.
 You can use tools like [VisualVM](https://visualvm.github.io/) to solve the issue in your application.
@@ -575,8 +577,6 @@ Should you find bugs in jpro, please inform us about any details through our
 
 ## [JavaFX Version 8 API](https://docs.oracle.com/javase/8/javafx/api/toc.htm)
 
-
-
 ## Related projects
 
 * A useful community library - [ControlsFX](http://fxexperience.com/controlsfx/) - with a set of interesting controls.
@@ -586,15 +586,17 @@ an impressive blog from the Java Champion Gerrit Grünwald, which describes his 
 the [Gluon Mobile](http://gluonhq.com/products/mobile/) library, which supports you in writing Java code 
 for the mobile platforms.
 * Dr. Michael Hoffer's [page](https://mihosoft.eu) with lots of interesting projects. 
+* Dirk Lemmermann's powerful, open source project [CalendarFX](http://dlsc.com/products/calendarfx/).
 
-\
-The jpro helloworld project can be found [here] (https://github.com/jpro-one/HelloJPro).
+The jpro helloworld project can be found [here](https://github.com/jpro-one/HelloJPro).
 
 
 ## Blogs
 
-[fxexperience.com](http://fxexperience.com/) is a very interesting blog from Jonathan Giles, previous Oracle, now Microsoft.
+[fxexperience.com](http://fxexperience.com/) is a very interesting blog from Jonathan Giles, previously Oracle, now Microsoft.
 
-[ScenicView](http://fxexperience.com/scenic-view/) represents a very handy debugging tool for UI development.
+[ScenicView](http://fxexperience.com/scenic-view/) represents a very useful debugging tool for UI development.
 
+
+The JavaFX Champion und JavaOne Rockstar [Dirk Lemmermann](http://dlsc.com/blog/)'s interesting blog.
 
