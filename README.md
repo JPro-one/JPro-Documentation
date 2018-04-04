@@ -41,7 +41,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.sandec.jpro:jpro-plugin-gradle:2018.1.0'
+    classpath 'com.sandec.jpro:jpro-plugin-gradle:2018.1.1'
   }
 }
 
@@ -159,9 +159,9 @@ The following configuration properties are available:
 
  Property         | Default value   | Description 
  -----------------| --------------- | -----------
- visible          | false           | If true, an additional window, beside the browser window, hosts the original javafx-version. This is for debuggig, only. It impacts the performance negatively. 
+ visible          | false           | If true, an additional window, beside the browser window, hosts the original javafx-application. This is for debuggig, only. It impacts the performance negatively. 
  port             | 8080            | The port to which the server should listen. 
- openURLOnStartup | true            | tells jpro, whether the Browser should be opened after calling jproRun
+ openURLOnStartup | true            | Tells jpro, whether the Browser should be opened after calling jproRun
  openingPath      | "/test/default" | On jproRun the Browser is automatically opened. This variable defines the path of the opened URL. 
  jproVersion      | The version of the jpro-gradle-plugin | The jpro-version to be used. 
 
@@ -181,7 +181,7 @@ jpro {
                                       
   port = 8083                         // The web-socket app to use.  
 
-  jproVersion = "2018.1.0"            // The jpro version to use.  
+  jproVersion = "2018.1.1"            // The jpro version to use.  
 
   openURLOnStartup = false            // This prevents the browser from opening 
                                       // when jproRun is called.    
@@ -218,7 +218,6 @@ be started when you trigger a **starting option**.  The different options for st
 
 * using the `jproRun` command
 * authoring a URL in the browser
-* ??
 
 
 A **typical localhost URL** looks like the following:
@@ -268,7 +267,7 @@ The jpro-app tag has a set of **attributes**, which can be set to control the jp
   href             |               |The URL of the application to be started.  It is either the URL of the App's websocket connection `"wss://yourServer.com/app/myAppName"`, or it's the relative URL `"/app/myAppName"`.
   loader           |               |Defines whether or not to activate the loading animation for this jpro-app. Valid values are: `"default"` `"none"`
   fullscreen       | "false"       |When true, the jpro app is resized to the entire page. It also **sets autofocus** to true.
-  readonly         | "false"       |When true, the user can NOT do any data authering to the scene.
+  readonly         | "false"       |When true, the user can NOT do any data authoring to the scene.
   disableShadows   | "false"       |Disables all shadows in the jpro-renderer.  This might be useful, for rendering performance reasons.
   disableEffects   | "false"       |Disables all effects in the jpro-renderer.  This might be useful, for rendering performance reasons.
   autofocusEnabled | "false"       |When true, the jpro-tag gets focused when the page is opened. This is useful for text-input, for example to enable the TextInput for a login-mask. 
@@ -351,13 +350,13 @@ should be placed in the classpath on `/jpro/html`.
 ## THE WEB-API
 The main purpose of the WEB-API is to let you create individual Javascript code for the browser, 
 which can interoperate with jpro.  This means, should you want to bind your browser app to existing Javascript code, 
-then the WEB-API comes to play.  But, in addition to that, it offers some general methods, which you will find 
+then the WEB-API comes to play.  But, in addition, it offers some general methods, which you will find 
 useful when creating cross platform solutions. 
 
 The following features are currently available:
 
 * Detecting your current running platform, like `com.jpro.web.WebAPI.isBrowser`
-* Information about your current **session*, **language* used, **cookies**, the current **URL**, etc.
+* Information about your current **session**, **language** used, **cookies**, the current **URL**, etc.
 * Bridges for **bi-directional communication** between client-side Javascript/browser code and server-based java code.
 * You can **interchange data**, do **remote calling**, registering remote functions calls, to be used between   
 the client-side Javascript/browser and your server-based java code, and vice versa.
@@ -382,7 +381,7 @@ the following statement:
 ```
 dependencies {
     ...
-    compile "com.sandec.jpro:jpro-webapi:2018.1.0"
+    compile "com.sandec.jpro:jpro-webapi:2018.1.1"
     ...
 }
 ```
@@ -399,20 +398,20 @@ A `username` and `passwort` for these pages can be configured in the `jpro.conf`
 url | content
 ----| -------
 /status                     | Returns a page with some statistics about the running server.
-/status/alive               | Asks the running server whether it's alive and ok., When the javafx-thread is not being blocked and running normally the server responds with the word "alive".
+/status/alive               | Asks the running server whether it's alive and ok., When the javafx-thread is not being blocked and running normally, the server responds with the word "alive".
 /info/log/console.log       | Returns a log-file with all the console-output of the application. The logging of the console-output can be deactivated in the `jpro.conf`.
 /info/log/info.log          | Returns a log-file with all the info-logs in the jpro-server.
 /info/log/warning.log       | Returns a log-file with all the warning-logs in the jpro-server.
 /info/log/error.log         | Returns a log-file with all the error-logs in the jpro-server.
 /info/log/activity.log      | Returns a log-file with all the activity-logs in the jpro-server.
-/info/fxstack               | Returns the whole stack-trace of the javafx-thread. Useful for debugging an blocked javafx-threads.
+/info/fxstack               | Returns the whole stack-trace of the javafx-thread. Useful for debugging blocked javafx-threads.
 /info/minmemory             | Returns the memory-usage of the jvm, after running the garbage-collector.
 /test/\<appname>            | Creates a simple test-page, which opens the provided application.
 /test/fullscreen/\<appname> | Creates a simple test-page, which opens the provided application in fullscreen.
 /test/scrolling/\<appname>  | Creates a simple test-page, which opens the provided application as natively scrollable.
 /info/heapdumps/heapdump.hprof | Downloads the heapdump of the server. Useful for finding memory-leaks with tools liks [VisualVM](https://visualvm.github.io/)
  
-Here an examples of a command to a running jpro server called **live.ff-drohnenquiz.de**:
+Here an examples of a command sent to a running jpro server called **live.ff-drohnenquiz.de**:
 
 ```
     live.ff-drohnenquiz.de/status
@@ -436,7 +435,7 @@ which returns the following information about the jpro server:
 
 ### Deployment Requirements
 Basically, jpro servers can run on any server with a JVM on it.  But, fact is, so far all our real world projects 
-are using Linux for the backend and therefore also for jpro.  FOr development purposes, we are mostly running our 
+are using Linux for the backend and therefore also for jpro.  For development purposes, we are mostly running our 
 jpro servers on MacOS or Windows, but not for the live systems.  For those who cannot wait, but really need Windows 
 or MacOS as deployment platforms for the backends right now, please contact us directly.  Our recommended platform 
 for the jpro servers at time being is [Ubuntu 16.04](http://releases.ubuntu.com/16.04/).  
@@ -469,7 +468,7 @@ Other requirements are:
  proxy_http_version 1.1;
  ```
 
- The following procedure can be used to heko creating the file: 
+ The following procedure can be used to help creating the file: 
 
  In order to configure the domain the way a jpro server needs it, please create the following file 
  (replace `yourdomain` with the real name):
@@ -513,12 +512,24 @@ But, it is important not to use them in the wrong way.)
 
 
 ### Not yet supported JavaFX features 
-(this list refers to version 2018.1.0)
+(this list refers to version 2018.1.1)
 * Canvas
 * MediaPlayer
 * Some effects
 * Snapshots
 * 3D
+* SwingNode
+
+# CHANGELOG
+## CHANGELOG
+### 2018.1.1
+
+* Improved error-message, when a file couldn't be found in the package jpro/html
+* Fixed a bug, which can cause wrong event-positions. This was likely to happen in combination with ScrollPane
+* Fixed Double-Clicks on mobile browsers
+* Reworked how `WebView` and HTMLView` is working, it's implementation is now much simpler
+* WebAPI: Fixed bug in `FileHandler`, uploading the same file twice now works properly
+* WebAPI: Improved FileHandler, there is now an `onFileSelected`-event, and a new property `fileDragOver`
 
 
 # FAQ
