@@ -163,7 +163,8 @@ The following configuration properties are available:
  port             | 8080            | The port to which the server should listen. 
  openURLOnStartup | true            | Tells jpro, whether the Browser should be opened after calling jproRun
  openingPath      | "/test/default" | On jproRun the Browser is automatically opened. This variable defines the path of the opened URL. 
- jproVersion      | The version of the jpro-gradle-plugin | The jpro-version to be used. 
+ jproVersion      | The version of the jpro-gradle-plugin | The jpro-version to be used.
+ JVMArgs          | [] | A list of arguments, which are used to run jpro. 
 
 
 #### A build.gradle example
@@ -188,6 +189,8 @@ jpro {
                                               
   openingPath = /fullscreen/          // A prefix to use for the path in  
                                       // the Url for the browser.
+                                      
+  JVMArgs << '-Xmx3500m'              // Lets set the memory for the jpro-Server
 }
 ```
 
@@ -351,7 +354,7 @@ should be placed in the classpath on `/jpro/html`.
 The main purpose of the WEB-API is to let you create individual Javascript code for the browser, 
 which can interoperate with jpro.  This means, should you want to bind your browser app to existing Javascript code, 
 then the WEB-API comes to play.  But, in addition, it offers some general methods, which you will find 
-useful when creating cross platform solutions. 
+useful when creating cross platform solutions.
 
 The following features are currently available:
 
@@ -381,7 +384,7 @@ the following statement:
 ```
 dependencies {
     ...
-    compile "com.sandec.jpro:jpro-webapi:2018.1.1"
+    compile "com.sandec.jpro:jpro-webapi:2018.1.2"
     ...
 }
 ```
@@ -443,9 +446,50 @@ Other requirements are:
 
  * jpro requires the Oracle-JRE.  jpro requires javaFX, which is not always contained in OpenJDK.
  
+ * JavaFX requires some libraries to run in an headless environment. 
+   Installing GTK and X11 is usually enough to run JavaFX.
+ 
  * For production it is highly recommended to use SSL.
    Why is this important?
    Because, some time proxies manipulate the traffic stream, and this would otherwise break the support of websockets.
+   
+## PREPARING LINUX FOR JPRO
+
+### Ubuntu 16.04:
+
+To use jpro on Debian, one has to install the following packages:
+
+```
+sudo add-apt-repository ppa:webupd8team/java -y
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+
+sudo apt-get install xorg gtk2-engines libasound2
+```
+
+
+### RedHat 7.5:  (OracleLinux CentOS (Tested with Redhat 7.5))
+
+To use jpro on RedHat, one has to install the offical [oracle-java](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) (not openjdk!) and install it.
+The download has to be a rpm-package.
+```
+# Install oracle linux, you have to download it, and install it
+sudo yum localinstall <filename>.rpm
+
+sudo yum install gtk2 
+sudo yum groupinstall "X Window System"
+```
+
+### Debian GNU/Linux 9 (Stretch)
+
+To use jpro on Debian, one has to install the following packages:
+```
+sudo apt-get install software-properties-common
+sudo add-apt-repository "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+sudo apt-get install gtk2-engines xorg libasound2
+```
 
 ### SSL by using NGINX
 
@@ -512,7 +556,7 @@ But, it is important not to use them in the wrong way.)
 
 
 ### Not yet supported JavaFX features 
-(this list refers to version 2018.1.1)
+(this list refers to version 2018.1.2)
 * Canvas
 * MediaPlayer
 * Some effects
@@ -522,6 +566,21 @@ But, it is important not to use them in the wrong way.)
 
 # CHANGELOG
 ## CHANGELOG
+
+
+### 2018.1.2
+
+* ***Added Support for Java10!***
+* JPRO  : When browser is resized fast and the server cannot catch up, the outdated resizing is now skipped.
+* JPRO  : fixed wrong clipping, when using the jpro-tag-attribute: scaling
+* JPRO  : Fixed an exception in the browser related to HTMLView and SVGView. They didn't had any symptoms
+* JPRO  : added error-message, when initialization of jpro doesn't terminate
+* GRADLE: Fixed `jproRelease` on a clean build
+* GRADLE: For the tasks `jproStart` and `jproRestart`, The console-output of jpro-process is now printed, until the port is opened
+* GRADLE: On startup-failure, the exit-code is no longer printed in a loop
+* WebAPI: fileDragOver is also updated, when selectFileOnDrop is not true
+* WebAPI: added the property `selectFileOnDrop` to `FileHandler`, previously it was implied by `electFileOnClick
+
 ### 2018.1.1
 
 * Improved error-message, when a file couldn't be found in the package jpro/html
@@ -530,6 +589,7 @@ But, it is important not to use them in the wrong way.)
 * Reworked how `WebView` and HTMLView` is working, it's implementation is now much simpler
 * WebAPI: Fixed bug in `FileHandler`, uploading the same file twice now works properly
 * WebAPI: Improved FileHandler, there is now an `onFileSelected`-event, and a new property `fileDragOver`
+
 
 
 # FAQ
@@ -571,6 +631,10 @@ My application slows down over time. After a while it some times even crashes. W
 * A common reason for this behaviour is a memory leak in your application.
 You can use tools like [VisualVM](https://visualvm.github.io/) to solve the issue in your application.
 
+```
+How can i use a IDE for my jpro-project?
+```
+The HelloWorld-Project is a simple gradle/java project, which can be imported by intellij or eclipse without any modifications.
 
 # SUPPORT
 
@@ -584,7 +648,9 @@ Should you find bugs in jpro, please inform us about any details through our
 
 # Links
 
-## [JavaFX Version 9 API](https://docs.oracle.com/javase/9/docs/api/overview-summary.html)
+## [JavaFX Version 10 API](https://docs.oracle.com/javase/10/docs/api/javafx.base-summary.html)
+
+## [JavaFX Version 9 API](https://docs.oracle.com/javase/9/docs/api/javafx.base-summary.html)
 
 ## [JavaFX Version 8 API](https://docs.oracle.com/javase/8/javafx/api/toc.htm)
 
