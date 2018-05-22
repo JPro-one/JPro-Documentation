@@ -1,6 +1,6 @@
-# JPRO DOCs
+# GETTING STARTED
 
-## GETTING STARTED
+## RUN JPRO LOCALLY
 
 The easiest way to get started, is to use **Gradle** as build tool.
 jpro provides a plugin for gradle,
@@ -80,12 +80,50 @@ jpro.applications {
 Start a **Terminal session**, move to the **main project directory** and enter the command:
 
 ```groovy
-gradle jproRun
+./gradlew jproRun
 ```
 
 Now you should see your app running inside of your standard browser.
 
 
+
+## RUN JPRO REMOTELY
+
+### Step `1`. Prepare your server
+
+To run jpro on linux, the server must be configured correctly.
+
+Checkout the following chapters to configure your server correctly for jpro:
+
+[DEPLOYING JPRO](/?page=docs/current/2.6/DEPLOYING_JPRO)
+ 
+[PREPARING LINUX FOR JPRO](/?page=docs/current/2.7/PREPARING_LINUX_FOR_JPRO)
+
+### Step `2`. Create the binary
+
+Create a zip which contains the application with the following command:
+```groovy
+./gradlew jproRelease
+```
+
+The path of the zip-file is the following: `build/distributions/<app-name>-jpro.zip`
+
+Now copy this file to your Server and unzip it.
+
+### Step `3`. Run jpro
+
+In the unzipped folder you can find a start-script: `bin/start.sh`
+
+By running `./bin/start.sh` you start the JPRO Server on your server. 
+
+The JPRO Server is now ready to server your URLs entered in your browser.
+
+```bash
+./bin/start.sh
+```
+
+
+# JPRO DOCs
 
 
 ## JPRO COMMANDS
@@ -470,10 +508,12 @@ sudo apt-get install xorg gtk2-engines libasound2
 
 ### RedHat 7.5:  (OracleLinux CentOS (Tested with Redhat 7.5))
 
-To use jpro on RedHat, one has to install the offical [oracle-java](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) (not openjdk!) and install it.
-The download has to be a rpm-package.
+To use JPRO on RedHat, one has to download and install the official [Oracle-Java](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) (not OpenJDK).
+The download must be an rpm-package.
+
 ```
-# Install oracle linux, you have to download it, and install it
+# You have to download and install Oracle Linux
+
 sudo yum localinstall <filename>.rpm
 
 sudo yum install gtk2 
