@@ -10,10 +10,12 @@ which is obviously rather practical during the development process.
 
 Currently, JPro supports Gradle in the versions 2.x, 3.x and 4.x. We suggest to use 4.x.
 
-As a simple reference project, you could take a look at the simple [hello-world-gradle](https://github.com/jpro-one/HelloJPro) 
+As a simple reference project, you could take a look at the simple [hello-world-gradle](https://github.com/JPro-one/HelloJPro) 
 and you can [run it online](https://demos.jpro.one/helloworld.html).
 
 Our public **ticket system** can be found on [github](https://github.com/JPro-one/JPro-tickets). 
+
+[Here](https://github.com/JPro-one/JPro-Samples/) you can find some easy and useful samples.
 
 To get started and run your first app with JPro, you should execute the following **4 steps**:
 
@@ -31,7 +33,7 @@ Gradle can be downloaded and installed [here](https://gradle.org/install/).
 #### Step `2`. Create the Gradle script 
  
 Create the file `build.gradle` and put it into your **project's root directory**.  
-You can either download a template file [here](https://raw.githubusercontent.com/jpro-one/HelloJPro/master/build.gradle) or just use the following:
+You can either download a template file [here](https://raw.githubusercontent.com/JPro-one/HelloJPro/master/build.gradle) or just use the following:
 
 ```groovy
 buildscript {
@@ -43,7 +45,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.sandec.jpro:jpro-plugin-gradle:2018.1.9'
+    classpath 'com.sandec.jpro:jpro-plugin-gradle:2018.1.11'
   }
 }
 
@@ -69,7 +71,7 @@ which is a superset of JSON, and is optimized for writing configurations.
 The `jpro.conf` must be placed into the directory `<project-dir>/src/main/resources`.
 
 You can either download a **template file** 
-[here](https://raw.githubusercontent.com/jpro-one/HelloJPro/master/src/main/resources/jpro.conf) or just use the following:
+[here](https://raw.githubusercontent.com/JPro-one/HelloJPro/master/src/main/resources/jpro.conf) or just use the following:
 
 ```groovy
 jpro.applications {
@@ -136,7 +138,7 @@ You can either download a template file [here](https://github.com/JPro-one/Hello
     <packaging>jar</packaging>
 
     <properties>
-        <jproVersion>2018.1.9</jproVersion>
+        <jproVersion>2018.1.11</jproVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -206,7 +208,7 @@ which is a superset of JSON, and is optimized for writing configurations.
 The `jpro.conf` must be placed into the directory `<project-dir>/src/main/resources`.
 
 You can either download a **template file** 
-[here](https://raw.githubusercontent.com/jpro-one/HelloJPro/master/src/main/resources/jpro.conf) or just use the following:
+[here](https://raw.githubusercontent.com/JPro-one/HelloJPro/master/src/main/resources/jpro.conf) or just use the following:
 
 ```groovy
 jpro.applications {
@@ -315,7 +317,7 @@ for then to make some small adaptions to it.  This chapter will show you what yo
 choose to go down that route. A bit later, you can decide whether you would use **Gradle or Maven** for your project.
 
 As a start, take a look at your `index.html`, which can be downloaded 
-[here](https://github.com/jpro-one/HelloJPro/blob/master/src/main/resources/jpro/html/index.html)
+[here](https://github.com/JPro-one/HelloJPro/blob/master/src/main/resources/jpro/html/index.html)
 
 ### Starting an app from the index.html
 
@@ -355,7 +357,7 @@ As a JPro session gets startet, it will look for this app name inside of the res
 ### jpro.conf
 
 The `jpro.conf` of the HelloJPro project can be downloaded 
-[here](https://github.com/jpro-one/HelloJPro/blob/master/src/main/resources/jpro.conf).  It looks like the following:
+[here](https://github.com/JPro-one/HelloJPro/blob/master/src/main/resources/jpro.conf).  It looks like the following:
 
 ```
 jpro.applications {
@@ -417,7 +419,7 @@ for more detailed information about `jpro.conf`.
 ### Starting an app from build.gradle 
 
 The `build.gradle` file of the HelloJPro project can be downloaded
-[here](https://github.com/jpro-one/HelloJPro/blob/master/build.gradle).  It looks like the following:
+[here](https://github.com/JPro-one/HelloJPro/blob/master/build.gradle).  It looks like the following:
 
 ```
 /**
@@ -433,7 +435,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.sandec.jpro:jpro-plugin-gradle:2018.1.9'
+    classpath 'com.sandec.jpro:jpro-plugin-gradle:2018.1.11'
   }
 }
 
@@ -483,7 +485,7 @@ jpro {
   port = 8080
 
   //jpro version (optional)
-  jproVersion = "2018.1.9"
+  jproVersion = "2018.1.11"
 
   openingPath = ""
 }
@@ -508,7 +510,7 @@ The `pom.xml` file of the HelloJPro project can be downloaded
     <packaging>jar</packaging>
 
     <properties>
-        <jproVersion>2018.1.9</jproVersion>
+        <jproVersion>2018.1.11</jproVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -582,7 +584,7 @@ communication platform for your JPro server. To achieve this, follow these steps
 
 ### Step `1`. Start JPro in localhost
 
-Make sure you have the `index.html`, the `jpro.conf` and your tool specific file (either `gradle.build` or `pom.xml`) 
+Make sure the `index.html`, the `jpro.conf` and your tool specific file (either `gradle.build` or `pom.xml`) 
 are correctly setup to start your app. Check this by starting your JPro app as a normal app in your browser.  See 
 [RUN JPRO LOCALLY](/?page=docs/current/1.1/RUN_JPRO_LOCALLY/) for more details.
 
@@ -677,7 +679,7 @@ You are done!  Now, everyone can participate to one and the same session of your
 There are two ways of making Gradle accessable for your project:
 
  * the files `gradlew` and `gradlew.bat` are parts of your project 
- (see the [helloJPro example](https://github.com/jpro-one/HelloJPro))  
+ (see the [helloJPro example](https://github.com/JPro-one/HelloJPro))  
  * you have downloaded and installed gradle
 
 The following ***JPro commands*** are supported by the jpro-gradle-plugin, to be started either from your IDE or 
@@ -775,10 +777,11 @@ The following configuration properties are available:
  visible          | false           | If true, an additional window, beside the browser window, hosts the original javafx-application. This is for debuggig, only. It impacts the performance negatively. 
  port             | 8080            | The port to which the server should listen. 
  openURLOnStartup | true            | Tells JPro, whether the Browser should be opened after calling `jproRun`
- openingPath      | "/test/default" | On `jproRun` the Browser is automatically opened. This variable defines the path of the opened URL.
+ openingPath      | "/"             | On `jproRun` the Browser is automatically opened. This variable defines the path of the opened URL.
  useFontConfig    | false           | Tells the Server, whether the library fontconfig should be used to resolve fonts. It's deactivated by default to make sure, the font is always the same.
  jproVersion      | The version of the jpro-gradle-plugin | The JPro-version to be used.
  JVMArgs          | [] | A list of arguments, which are used to run JPro. 
+ jproReleaseFiles | [:] | A map of paths and files, which should be added to the zip, generated by `jproRelease`
 
 
 #### A build.gradle example
@@ -796,15 +799,23 @@ jpro {
                                       
   port = 8083                         // The web-socket app to use.  
 
-  jproVersion = "2018.1.9"            // The JPro version to use.  
+  jproVersion = "2018.1.11"            // The JPro version to use.  
 
   openURLOnStartup = false            // This prevents the browser from opening 
                                       // when jproRun is called.    
                                               
-  openingPath = /fullscreen/          // A prefix to use for the path in  
+  openingPath = "/fullscreen/"        // A prefix to use for the path in  
                                       // the Url for the browser.
                                       
   JVMArgs << '-Xmx3500m'              // Lets set the memory for the JPro-Server
+  
+  // These two lines will add the file1.dat and file2.dat to the folder data in the zipfile.
+  // The names of the files are changed to newname1.dat and newname2.dat.
+  jproReleaseFiles << new JProReleaseFile("target/file1.dat", "/data/newname1.dat")
+  jproReleaseFiles << new JProReleaseFile("target/file2.dat", "/data/newname2.dat")
+  
+  // The file is added to the folder named data, with the filename file3.dat.
+  jproReleaseFiles << new JProReleaseFile("target/file3.dat", "/data/")
 }
 ```
 
@@ -830,6 +841,22 @@ Here an **example**:
       </JVMArgs>
       <mainClassName>com.jpro.hellojpro.HelloJProFXML</mainClassName>
       <openingPath>/</openingPath>
+      
+      <jproReleaseFiles>
+          <JProReleaseFile>
+              <inputFile>${project.build.outputDirectory}/file1.dat</inputFile>
+              <outputFile>/data/newname1.dat</outputFile>
+          </JProReleaseFile>
+          <JProReleaseFile>
+              <inputFile>${project.build.outputDirectory}/file2.dat</inputFile>
+              <outputFile>/data/newname2.dat</outputFile>
+          </JProReleaseFile>
+          
+          <JProReleaseFile>
+              <inputFile>${project.build.outputDirectory}/file3.dat</inputFile>
+              <outputFile>/data/</outputFile>
+          </JProReleaseFile>
+      </jproReleaseFiles>
   </configuration>
 </plugin>
 }
@@ -962,7 +989,7 @@ Here, **an example** (of course, to see an example, you could also just inspect 
 
 In order to **make resources publicly available as URLs**, you just need to understand and follow 
 some **simple conventions** defined for the jpro servers.  Because of those conventions, you are freed from 
-the burden of using a separate web servers for your resources, be it images, html-files or any 
+the burden of using separate web servers for your resources, be it images, html-files or any 
 other thinkable resource.
 
 Any resource underneath the package `jpro/html` are publicly available through the jpro-server as a URL.
@@ -985,7 +1012,7 @@ The JPro server can be reached with the url `http://localhost:8080`,
 
 ### Publishing JPro applications
 
-To make your JPro applications accesible via URL, you should create an “index.html” and place
+To make your JPro applications accessible via URL, you should create an “index.html” and place
 it into 
 
 `/jpro/html/index.html`
@@ -1034,7 +1061,7 @@ the following statement:
 ```
 dependencies {
     ...
-    compile "com.sandec.jpro:jpro-webapi:2018.1.9"
+    compile "com.sandec.jpro:jpro-webapi:2018.1.11"
     ...
 }
 ```
@@ -1060,10 +1087,11 @@ the following statement:
 
 ## DEBUGGING AND TESTING
 The following tags can be added to the original URL of your JPro server.  
-The JPro server responds to those tags in different ways, and therebye allows for system administrators and 
+The JPro server responds to those tags in different ways, and thereby allows for system administrators and 
 developers to aquire useful information during runtime. 
 
-A `username` and `passwort` for these pages can be configured in the `jpro.conf`, which is mandatory for production.
+A `username` and `passwort` for the URLs (or pages) can be configured in the `jpro.conf`.
+In production, the URLs (or pages) are only accessible, when a password is configured.
 
 url | content
 ----| -------
@@ -1081,41 +1109,38 @@ url | content
 /test/scrolling/<appname>  | Creates a simple test-page, which opens the provided application as natively scrollable.
 /info/heapdumps/heapdump.hprof | Downloads the heapdump of the server. Useful for finding memory-leaks with tools liks [VisualVM](https://visualvm.github.io/)
  
-Here an examples of a command sent to a running JPro server called **live.ff-drohnenquiz.de**:
-
-```
-    live.ff-drohnenquiz.de/status
-```
+Here is an example of a command sent to a running JPro server called **https://www.jpro.one/status** (which is password protected)
 
 which returns the following information about the JPro server:
 
 ```
 {
-  "startTime" : "Wed Oct 17 15:39:58 UTC 2018",
-  "time running" : "Mon Jan 05 20:29:19 UTC 1970",
-  "Views created" : 511,
-  "Views active" : 7,
-  "Views afk" : 6,
-  "framerate" : 63,
-  "Windows open" : 7,
+  "Start time" : "Sun Mar 17 21:12:03 CET 2019",
+  "Time running" : "00:01:41.310",
+  "Views created" : 2,
+  "Views active" : 2,
+  "Views afk" : 1,
+  "Framerate" : 1,
+  "Windows open" : 2,
   "Mediaplayers open" : 0,
-  "Open Instances" : "List(default, default, default, default, default, default, default)",
-  "maxMem" : "3262m",
-  "usedMem(heap)" : "18.703641528277156%",
-  "usedMem(non-heap)" : "52252  kB",
-  "committedMem(non-heap)" : "55872 kB",
-  "fx-cpu-usage" : "1.3154468750000001%",
-  "jPro version" : "2018.1.7-SNAPSHOT",
-  "java.version" : "1.8.0_161",
-  "Latest git commit" : "531aca610f155092b8f6a3d1dfd1f0c46a041b46",
-  "deployment" : "GRADLE-Distribution",
-  "Free System memory" : "1589328  kB",
-  "Total System memory" : "8173548  kB",
-  "Free Disk space" : "2059  mB",
-  "Total Disk space" : "7927  mB",
-  "Default java encoding" : "ANSI_X3.4-1968",
-  "Default java Local" : "en_US",
-  "Default java timezone" : "Coordinated Universal Time"
+  "Max memory" : "3641 mB",
+  "Used memory(heap)" : "3.30%",
+  "Used memory(non-heap)" : "56 mB",
+  "Committed memory(non-heap)" : "59 mB",
+  "JavaFX thread CPU usage" : "5.21%",
+  "Java version" : "1.8.0_192",
+  "JPro version" : "2018.1.12",
+  "Latest JPro GIT commit" : "63f21b3c1fb79f82454462b654192efa15bd9a38",
+  "Mode" : "dev",
+  "Deployment" : "MAVEN-Normal",
+  "Free system memory" : "31 mB",
+  "Total system memory" : "16384 mB",
+  "Free disk space" : "22669 mB",
+  "Total disk space" : "239172 mB",
+  "Default Java encoding" : "UTF-8",
+  "Default Java local" : "en_DE",
+  "Default Java timezone" : "Central European Time",
+  "Open instances" : [ "hellojpro", "hellojpro" ]
 }
 ```
 
@@ -1255,28 +1280,103 @@ This makes it very difficult to run JPro on Amazon Linux.
 When using JPro, please be aware of the following important aspects:
 * Your app **must NOT block** the javafx-thread.  Wait-, sleep-commands, showAndWaits in the javafx-thread are no-nos.
 * Be careful when using **dialog boxes**. Make sure they dont use showAndWait (see above).
+[Here](https://github.com/JPro-one/JPro-Samples/tree/master/popups) you can see how to create a JPro agnostic popup.
+You can also use [this popup](http://www.jfoenix.com/documentation.html#Dialog) from the Jphoenix library.
 * Be careful with **statics**, because they would be shared between multiple instances 
 (interesting enough, there are use cases in which this fact can be utilized as a very useful feature. 
 But, it is important not to use them in the wrong way.) 
 * Creating additional **Stages** is not supported.
   The only Stage which can be opended by a Session, is the Stage associated with the `javafx.scene.Application.show` method.
   One alternative is, to create new windows or dialogues by using a StackPane at the root of your application.
-* The class WebView only works very limited with JPro. It should be replaced with `com.jpro.webapi.HTMLView` 
+  You can find an example in [this popups sample](https://github.com/JPro-one/JPro-Samples/tree/master/popups).
+* The class WebView only works very limited with JPro. 
+It should be replaced with `com.jpro.webapi.HTMLView`. 
+[Here](https://github.com/JPro-one/JPro-Samples/tree/master/html-jpro) a link to a sample showing how to use 
+the **HTMLView**.
 
 
 ### Not yet supported JavaFX features 
-(this list refers to version 2018.1.9)
+(this list refers to version 2018.1.11)
 * Canvas
 * MediaPlayer
-* Some effects
+* The following Effect classes
+    * Bloom
+    * BoxBlur
+    * ColorInput
+    * DisplacementMap
+    * DropShadow (Supported, but slow)
+    * Glow
+    * ImageInput
+    * InnerShadow (Supported, but slow)
+    * Lighting
+    * MotionBlur 
+    * PerspectiveTransform
+    * Reflection
+    * Shadow 
 * Snapshots
 * 3D
 * SwingNode
-* javafx.stage.FileChooser
+* FileChooser 
 * Clipboard
+* Stages (Primary Stage supported, only)
+* WebView (Supported in it's basic form, only. We recommend to use the 
+[HTMLView](https://www.jpro.one/?page=docs/current/api), instead.)
+
 
 # CHANGELOG
 ## CHANGELOG
+
+### 2018.1.12 (17. March 2019)
+**JPro** features:
+* The processing of user input, mainly relevant for slow event listeners, was performance optimized.   The new behavior is closer to the behavior of JavaFX on the desktop.
+* Changed the naming-pattern for logfiles. The new pattern is "logs/jpro.$level.log" instead of "logs/application.$level.log".
+
+**JPro** fixes:
+* The blinking behavior of the Caret in TextFields and TextAreas now behaves like on the desktop. It stops blinking for a short time, after typing.
+* Key events for TextFields and TextAreas are now consumed as on the desktop.  They are consumed when the objects are focused.  Before this fix, when pressing SPACE in a focused TextField in a ScrollPane, a non-expected scroll down was executed.
+* The `/status` page has gone through a cleanup regarding names and formatting.
+* Fixed a bug on mobile chrome. On a touch, when the event target was removed shortly after touching down, then the touch release was not fired.
+* Fixed a bug on mobile. On a long press, sometimes a release event was fired without actually releasing.
+* Fixed a very rare bug, which could cause the text input to stop working.
+
+### 2018.1.11 (11. February 2019)
+
+**JPro** features:
+* The page `/status` now uses mB instead of kB to display memory usage.
+
+**JPro** fixes:
+* Fixed a bug, which had the effect, that JPro didn't start properly with Java 1.8.0_202.
+* Fixed a bug, which could happen on iOS devices.  It sometimes caused the screen to darken on touch events.
+* Fixed a regression from 2018.1.10, the property `userSelect` of the <jpro-app> tag didn't work properly.
+* Fixed a regression from 2018.1.10, the file upload when using the WebAPI didn't work properly.
+
+**Gradle** and **Maven** Plugin fixes:
+* Files explicitly added to the jproRelease zip, were added as a root element of the zip. 
+  They are now added as an element of the folder of the application.
+
+### 2018.1.10 (7. January 2019)
+**JPro** features:
+* JProRelease: It's now possible to add additional files to the zip-file generated by `gradle jproRelease` or `mvn jpro:release`.
+  It's documented [here](https://www.jpro.one/?page=docs/current/2.2/CONFIGURING_JPRO).
+  
+* We added a development mode to the JPro server. 
+  It is activated when the server is started from gradle/maven.
+  The production mode is activated when the server is started by a zip, created with `gradle jproRelease` or `mvn jpro:release`.
+  Pages like `/status` or `/test/appname` are now only accessible **without** username/password, when the development mode is active.
+* We added a default-page for the JPro-server. 
+  When the resource `jpro/html/index.html` is unavailable as the path `<servername>/` is opened, the content of `test/fullscreen/default` is shown.
+  The default `openingPath` for gradle/maven is now `/`.
+* A small memory-leak was fixed in the JPro Renderer (the JPro component running inside of the browser).
+
+**JPro** fixes:
+* The HTMLView was sometimes still rendered when the HTMLView or one of it's children was not visible. This is now fixed.
+* Chrome: When the HTMLView was rendered outside of the visible area, sometimes the scrollable height of the page was changed. 
+  This is now fixed.
+
+**Gradle** and **Maven** Plugin fixes:
+* (see above) It's now possible to generate files with `gradle jproRelease` and `mvn jpro:release`.add and then to add them to the zip.
+* Fixed regression in the script `bin/stop.sh`. 
+  It was not deleting the file `RUNNING_PID`, when the process didn't exist. This is now fixed.
 
 ### 2018.1.9 (26.November 2018)
 
@@ -1383,7 +1483,7 @@ Fixes for the **Maven** Plugin:
 
 ### 2018.1.5 (23. July 2018)
 
-* Maven : Added an experimental version for a MavenPlugin. [Check out the Maven-Helloworld!](https://github.com/jpro-one/HelloJPro-Maven)
+* Maven : Added an experimental version for a MavenPlugin. [Check out the Maven-Helloworld!](https://github.com/JPro-one/HelloJPro-Maven)
 * WebAPI: Fixed fil-upload through file-drop in FireFox.
 * WebAPI: Fixed the behaviour for fileHover.
 * JPro  : Fixed the performance of `Node.setClip`. The implementation is now fast and correct. 
@@ -1468,6 +1568,7 @@ Does JPro work on mobile browser?
 Does JPro work in combination with Gluon?
 ```
 * JPro works without any problem with the [javafxmobile-plugin](https://bitbucket.org/javafxports/javafxmobile-plugin).
+But it's currently doesn't work with the Charm library, specifically when the class [MobileApplication](http://docs.gluonhq.com/charm/javadoc/4.3.3/com/gluonhq/charm/glisten/application/MobileApplication.html) is used.
 
 ```
 Does the ScenicView work in combination with JPro?
@@ -1498,12 +1599,14 @@ The HelloWorld-Project is a simple gradle/java project, which can be imported by
 
 # SUPPORT
 
+## SUPPORT
+
 Feel free to contact us at `info@jpro.one` for commercial support or any other related topic.
 
 ## What if I find bugs?
 
 Should you find bugs in jpro, please inform us about any details through our 
-[jpro bug-tracker](https://github.com/jpro-one/jpro-issues).
+[jpro bug-tracker](https://github.com/JPro-one/jpro-issues).
 
 
 # Links
@@ -1511,6 +1614,8 @@ Should you find bugs in jpro, please inform us about any details through our
 ## [OpenJFX](https://openjfx.io/)
 
 ## [Ticket System](https://github.com/JPro-one/JPro-tickets)
+
+## [JPro Samples](https://github.com/JPro-one/JPro-Samples/) 
 
 ## [JavaFX Version 11 API](https://openjfx.io/javadoc/11/index.html)
 
@@ -1538,7 +1643,7 @@ which describes his cool components libraries.
 * [Dr. Michael Hoffer's](https://twitter.com/mihosoft?lang=de)  
 with lots of [interesting projects](https://mihosoft.eu). 
 
-A JPro helloworld project can be found [here](https://github.com/jpro-one/HelloJPro).
+A JPro helloworld project can be found [here](https://github.com/JPro-one/HelloJPro).
 
 
 ## Blogs
