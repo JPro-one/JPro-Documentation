@@ -45,7 +45,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.sandec.jpro:jpro-plugin-gradle:2018.1.11'
+    classpath 'com.sandec.jpro:jpro-plugin-gradle:2019.1.0'
   }
 }
 
@@ -84,6 +84,8 @@ Make sure you use the same name specification for the `<jpro-app>` tag in the `i
 ```groovy 
 <jpro-app href="/app/myApp" fullscreen="true"></jpro-app>
 ```
+
+***TODO***
 
 #### Step `4`. Run the app 
 
@@ -138,7 +140,7 @@ You can either download a template file [here](https://github.com/JPro-one/Hello
     <packaging>jar</packaging>
 
     <properties>
-        <jproVersion>2018.1.11</jproVersion>
+        <jproVersion>2019.1.0</jproVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -221,6 +223,8 @@ Make sure you use the same name specification for the `<jpro-app>` tag in the `i
 ```groovy 
 <jpro-app href="/app/myApp" fullscreen="true"></jpro-app>
 ```
+
+*** TODO ***
 
 #### Step `4`. Run the app 
 
@@ -435,7 +439,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.sandec.jpro:jpro-plugin-gradle:2018.1.11'
+    classpath 'com.sandec.jpro:jpro-plugin-gradle:2019.1.0'
   }
 }
 
@@ -485,7 +489,7 @@ jpro {
   port = 8080
 
   //jpro version (optional)
-  jproVersion = "2018.1.11"
+  jproVersion = "2019.1.0"
 
   openingPath = ""
 }
@@ -510,7 +514,7 @@ The `pom.xml` file of the HelloJPro project can be downloaded
     <packaging>jar</packaging>
 
     <properties>
-        <jproVersion>2018.1.11</jproVersion>
+        <jproVersion>2019.1.0</jproVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -799,7 +803,7 @@ jpro {
                                       
   port = 8083                         // The web-socket app to use.  
 
-  jproVersion = "2018.1.11"            // The JPro version to use.  
+  jproVersion = "2019.1.0"            // The JPro version to use.  
 
   openURLOnStartup = false            // This prevents the browser from opening 
                                       // when jproRun is called.    
@@ -866,14 +870,20 @@ Here an **example**:
 
 The following properties can be set in the `jpro.conf`: 
 
- Property          | Default value | Description
- ------------------|---------------|------------
- preventSystemExit | true          | Tells the JVM, to prevent calls to `java.lan.System.exit`.
- adminUsername     | ""            | The username, to access logs, passwords etc.
- adminPassword     | ""            | The password, to access logs, passwords etc.
- gcWorkaroundStage | true          | Activated a workaround for a memory leak in JavaFX when closing a stage.
- logResourceAccess | false         | Log all access to resources under the path `jpro/html`.
- logUserInputEvents| true          | Log all input events. 
+ Property               | Default value | Description
+ -----------------------|---------------|------------
+ jpro.preventSystemExit | true          | Tells the JVM, to prevent calls to `java.lan.System.exit`.
+ jpro.adminUsername     | ""            | The username, to access logs, passwords etc.
+ jpro.adminPassword     | ""            | The password, to access logs, passwords etc.
+ jpro.gcWorkaroundStage | true          | Activated a workaround for a memory leak in JavaFX when closing a stage.
+ jpro.logResourceAccess | false         | Log all access to resources under the path `jpro/html`.
+ jpro.logUserInputEvents| true          | Log all input events.
+ 
+For example, The jpro.conf might look like the following to set up an admin login:
+```
+jpro.adminUsername = "admin"
+jpro.adminPassword = "secret"
+```
 
 #### Declaring runnable applications
 
@@ -953,6 +963,7 @@ The jpro-app tag has a set of **attributes**, which can be set to control the jp
   fxheight           | "false"       |When true, the height of the JPro-tag is managed by the JPro app. Otherwise the height is managed by html.
   fxContextMenu      | "false"       |When true, the context menu of the browser is surpressed and NOT shown. Is useful, when the JPro app itself has got a context-menu to show instead.
   setPrintJSCommands | "false"       |When true, all js-commands executed through the WebAPI are logged on the browser console.
+  timeUntilReconnect | "10000"       |It specifies after how much time, the client tries to reconnect, when he didn't hear anything from the server.
  
 ### A web-page template
 
@@ -1061,7 +1072,7 @@ the following statement:
 ```
 dependencies {
     ...
-    compile "com.sandec.jpro:jpro-webapi:2018.1.11"
+    compile "com.sandec.jpro:jpro-webapi:2019.1.0"
     ...
 }
 ```
@@ -1082,6 +1093,13 @@ the following statement:
     </dependencies>
 }
 ```
+
+#### Getting WebAPI as a Jar
+You can download the WebAPI from our [repository](http://sandec.bintray.com/repo/com/sandec/jpro/). 
+
+This can be useful when you are using neither Maven nor Gradle.
+
+[Here is the download link for the latest version.](http://sandec.bintray.com/repo/com/sandec/jpro/jpro-webapi/2019.1.0/jpro-webapi-2019.1.0.jar)
 
 
 
@@ -1168,15 +1186,15 @@ Other requirements are:
    
 ## PREPARING LINUX FOR JPRO
 
+### All linux versions
+Install Java8 from the Oracle page. You have to create an oracle account to download it.
+
+
 ### Ubuntu 18.04:
 
 To use JPro on Ubuntu 18.04, one has to install the following packages:
 
 ```
-sudo add-apt-repository ppa:webupd8team/java -y
-sudo apt-get update
-sudo apt-get install oracle-java8-installer
-
 sudo apt-get install xorg gtk2-engines libasound2 libgtk2.0-0
 ```
 
@@ -1185,9 +1203,7 @@ sudo apt-get install xorg gtk2-engines libasound2 libgtk2.0-0
 To use JPro on Ubuntu 16.04, one has to install the following packages:
 
 ```
-sudo add-apt-repository ppa:webupd8team/java -y
 sudo apt-get update
-sudo apt-get install oracle-java8-installer
 
 sudo apt-get install xorg gtk2-engines libasound2
 ```
@@ -1212,9 +1228,7 @@ sudo yum groupinstall "X Window System"
 To use JPro on Debian, one has to install the following packages:
 ```
 sudo apt-get install software-properties-common
-sudo add-apt-repository "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
 sudo apt-get update
-sudo apt-get install oracle-java8-installer
 sudo apt-get install gtk2-engines xorg libasound2
 ```
 
@@ -1285,19 +1299,19 @@ You can also use [this popup](http://www.jfoenix.com/documentation.html#Dialog) 
 * Be careful with **statics**, because they would be shared between multiple instances 
 (interesting enough, there are use cases in which this fact can be utilized as a very useful feature. 
 But, it is important not to use them in the wrong way.) 
-* Creating additional **Stages** is not supported.
-  The only Stage which can be opended by a Session, is the Stage associated with the `javafx.scene.Application.show` method.
-  One alternative is, to create new windows or dialogues by using a StackPane at the root of your application.
-  You can find an example in [this popups sample](https://github.com/JPro-one/JPro-Samples/tree/master/popups).
+* You can open **Stages** with the method `openStageAsPopup(Stage stage)` and `openStageAsTab(Stage stage)` of the [WebAPI](/api/2019.1.1/com/jpro/webapi/WebAPI.html).
+  An alternative is, to create new windows or dialogues by using a StackPane at the root of your application.
+  We have an example about popups in our [sample-project](https://github.com/JPro-one/JPro-Samples/tree/master/popups).
 * The class WebView only works very limited with JPro. 
 It should be replaced with `com.jpro.webapi.HTMLView`. 
-[Here](https://github.com/JPro-one/JPro-Samples/tree/master/html-jpro) a link to a sample showing how to use 
+[This sample ](https://github.com/JPro-one/JPro-Samples/tree/master/html-jpro) shows how to use 
 the **HTMLView**.
+* Snapshots only work with JavaFX11 or newer
 
 
 ### Not yet supported JavaFX features 
-(this list refers to version 2018.1.11)
-* Canvas
+(this list refers to version 2019.1.1)
+* Canvas (It will be supprted in the next major release)
 * MediaPlayer
 * The following Effect classes
     * Bloom
@@ -1313,18 +1327,123 @@ the **HTMLView**.
     * PerspectiveTransform
     * Reflection
     * Shadow 
-* Snapshots
 * 3D
 * SwingNode
-* FileChooser 
+* javafx.stage.FileChooser, please take a look at our [WebAPI](/api/2019.1.1/com/jpro/webapi/WebAPI.html#makeFileUploadNode-javafx.scene.Node-) and our [sample project](https://github.com/JPro-one/JPro-Samples) for an alternative. 
 * Clipboard
-* Stages (Primary Stage supported, only)
 * WebView (Supported in it's basic form, only. We recommend to use the 
-[HTMLView](https://www.jpro.one/?page=docs/current/api), instead.)
+[HTMLView](/?page=docs/current/api), instead.)
 
 
 # CHANGELOG
-## CHANGELOG
+
+## 2019.1.X
+
+### 2019.1.2 (11. September 2019)
+
+#### Features:
+ * Added the property `selectedFileSize` to the [FileHandler](/api/2019.1.2/com/jpro/webapi/WebAPI.FileUploader.html).  DOKU “FileHandler”, Wo???
+ * Added the attribute [timeUntilReconnect](/?page=docs/current/2.3/EMBEDDING_JPRO) to the JProTag. It specifies after how much time, the client tries to reconnect, when he didn't hear anything from the server.
+
+#### Bug fixes:
+ * Fixed a performance regression that was introduced in 2019.1.0. It has a significant impact when many nodes are serialized in one and the same frame.
+ * Eliminated the throwing of a superfluous exception. The text of the exception was like the following: `Popup cannot be cast to JavaFX.stage.Stage`
+ * [#29](https://github.com/JPro-one/JPro-tickets/issues/29) Fixed a bug appearing when using JPro with Firefox. When the application was not in fullscreen, a node with effects was not rendered.
+
+
+ * Fixed a bug when using the MavenPlugin. 
+ Maven was downloading the artifacts which are required for the command `mvn jpro:release`, 
+ even when this command was not called.
+
+### 2019.1.1 (17. June 2019)
+
+#### Features:
+ * Added the methods 
+[openLocalResource](/api/2019.1.1/com/jpro/webapi/WebAPI.html#openLocalResource-java.lang.String-) and 
+[openLocalURL ](/api/2019.1.1/com/jpro/webapi/WebAPI.html#openLocalURL-java.net.URL-) to the 
+[WebAPI](/api/2019.1.1/com/jpro/webapi/WebAPI.html). 
+They can be used to open files in a new tab, for example pdf-files.
+
+#### Bug fixes 
+ * In the JPro renderer, reduced CPU usage by about 10%. Before this fix JPro could allocate upto 10% of the local CPU at time when it should actually be idle.
+   Now, no relevant processing power is used when no changes are happening in the scene-graph.
+ * Fixed a rare bug, when opening two applications at once, sometimes one instance did not start properly.
+ * Sometimes, after reconnecting, the width or height of the application was wrong. This is now fixed.
+ * Fixed a bug when changing the Scene of a Stage. Now, the Scene gets properly relayouted to the size of the JProElement.
+ * Fixed a rare bug for JavaFX8 which in some rare occasions could cause the text input for a running session to stop working.
+ * Gradle: Fixed a bug in the Gradle plugin, the JavaFX-Fork was added to the compile dependencies.
+ * Maven: Fixed a bug, which prevented JPro from working when using JavaFX11 and Maven.
+ * Maven: Fixed the command `mvn jpro:release` for Maven. Now the proper files are added, which are required to run JPro on Linux.
+
+
+
+### 2019.1.0 (28. May 2019)
+
+This release by default uses a forked version of JavaFX11.
+JPro will still work with JavaFX8, but we recommend switching to Java(FX)11.
+Some new JPro features are restricted to JavaFX11 and higher.
+
+**We highly recommend switching to this new release `2019.1.0`,** 
+because previous versions were using an experimental version for Web Components,
+which will not be supported by Chrome much longer.
+
+#### Features for the forked JavaFX11
+* JPro now supports the method **snapshot** from Node.
+* Dragview and Drag events are now supported in JPro. 
+For now, they are restricted to work inside of the JavaFX application, they can not interface with other applications. 
+* When calling the method showAndWait, it no longer leads to a freeze of the JavaFX Thread. It does not mean JPro supports showAndWait calls, it just contraints their negative side effects. ShowAndWait calls now throw an exception when using JPro.
+
+#### Big features:
+* For Linux, we now use different default fonts, because the Lucida fonts were removed from the OpenJDK, which resulted in various problems during deployment.
+ Now they have been replaced by the fonts Roboto, Roboto Mono and Roboto Slab, which are licensed under the Apache License 2.0.
+
+* Significant Performance improvements, especially when showing a lot of nodes for the first time. The time needed for rendering the initial scene graph was reduced by 30%.
+
+* Updated the API version of the WebComponents.
+We highly recommend updating to this JPro version `2019.1.0`, because the old WebComponents API was experimental and will stop working on some browser soon. 
+
+* It's now possible to open **new Stages** as new tabs or popups. For this purpose, we've added the method `openStageAsPopup(Stage stage)` and `openStageAsTab(Stage stage)` to the WebAPI.
+
+* Added the method `runAfterUpdate` to the WebAPI. 
+This method enables for incremental loading of the scene graph, which can be used to improve the user experience.
+
+* Added the method `getWebAPI(Node node, WebAPIConsumer consumer)` to the WebAPI.
+It can be used to access the WebAPI from a node, instead of a stage.
+
+* JPro now supports Java12. New upcoming Java releases will now automatically work when there are no breaking change.
+
+
+#### Small Features
+* The JavaDoc and the source code of the WebAPI are now published as Maven artifacts. This should improve tooling for IDEs. The JavaDoc has now got richer content.
+* Added the field `JPro build time`, containing a timestamp for the JPro build, to the info block returned by the `/status` command.
+* Added a new favicon for the internal pages.
+
+#### Bug fixes
+* Fixed a rendering issue with Pie Chart. It happened to Regions with (a) width and height property equal zero and (b) with a shape.
+* `<script>` tags in HTMLView are now being executed. 
+* Fixed the path for the heap dumps, which were temporarily created when downloading the current heap dump.
+
+
+## 2018.1.X
+
+### 2018.1.14 (15. May 2019)
+**JPro** fixes:
+* JPro works now with the latest version of Java8 `1.8.0_212`.
+
+### 2018.1.13 (10. April 2019)
+**JPro** features:
+* The `/status` page as well as the JPro start and opening now lists the 
+JavaFX version used.
+* Improved the log information produced at JPro start.
+
+**JPro** fixes:
+* Mouse events are now generated while dragging a file from outside the 
+browser into the JPro session inside the browser.
+* Eliminated some rarethrowing of NullPointerExceptions.
+
+**Gradle** and **Maven** Plugin fixes:
+* When using `gradle jproRelease` or `mvn jpro:release` on Java11, now by 
+default, the JavaFX version 11.0.2 is used.
 
 ### 2018.1.12 (17. March 2019)
 **JPro** features:
