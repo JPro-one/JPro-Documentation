@@ -8,7 +8,7 @@ JPro provides a plugin for Gradle,
 which allows you to easily start JPro from an existing project, 
 which is obviously rather practical during the development process.
 
-Currently, JPro supports Gradle in the versions 2.x, 3.x and 4.x. We suggest to use 4.x.
+Currently, JPro supports Gradle in the versions 2.x, 3.x, 4.x, and 5.x. We suggest to use 5.x.
 
 As a simple reference project, you could take a look at the simple [hello-world-gradle](https://github.com/JPro-one/HelloJPro) 
 and you can [run it online](https://demos.jpro.one/helloworld.html).
@@ -36,29 +36,98 @@ Create the file `build.gradle` and put it into your **project's root directory**
 You can either download a template file [here](https://raw.githubusercontent.com/JPro-one/HelloJPro/master/build.gradle) or just use the following:
 
 ```groovy
+/**
+ ******************  Script Configuration ******************
+ */
 buildscript {
   repositories {
     jcenter()
+
     maven {
-      url "http://sandec.bintray.com/repo"
+      url "https://sandec.bintray.com/repo"
     }
   }
 
   dependencies {
-    classpath 'com.sandec.jpro:jpro-plugin-gradle:2019.1.0'
+    classpath 'com.sandec.jpro:jpro-plugin-gradle:2019.2.1'
   }
+}
+
+
+/**
+ ******************  Java Configuration ******************
+ */
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'com.google.osdetector'
+
+compileJava {
+  sourceCompatibility = 11
+  targetCompatibility = 11
 }
 
 repositories {
   jcenter()
 }
 
+ext.platform = osdetector.os == 'osx' ? 'mac' : osdetector.os == 'windows' ? 'win' : osdetector.os
+
+dependencies {
+    // Add your dependencies here, for example:
+    // compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
+    compile "org.openjfx:javafx-base:11:$platform"
+    compile "org.openjfx:javafx-graphics:11:$platform"
+    compile "org.openjfx:javafx-controls:11:$platform"
+    compile "org.openjfx:javafx-fxml:11:$platform"
+    compile "org.openjfx:javafx-media:11:$platform"
+    compile "org.openjfx:javafx-web:11:$platform"
+}
+
+
+compileJava {
+  doFirst {
+    options.compilerArgs = [
+            '--module-path', classpath.asPath,
+            '--add-modules', 'javafx.fxml,javafx.controls'
+    ]
+  }
+}
+
+
+run {
+  doFirst {
+    jvmArgs = [
+            '--module-path', classpath.asPath,
+            '--add-modules', 'javafx.fxml,javafx.controls'
+    ]
+  }
+}
+
+
+/**
+ ******************  jpro Configuration ******************
+ */
 apply plugin: 'com.sandec.jpro'
 
-mainClassName = 'your.class.Name'
 
+/**
+ * App Main Class
+ */
+//mainClassName = 'com.jpro.hellojpro.HelloJPro'
+mainClassName = 'com.jpro.hellojpro.HelloJProFXML'
+
+/**
+ * jpro settings
+ */
 jpro {
+  // for debugging
+  // JVMArgs << '-agentlib:jdwp=transport=dt_socket,server=n,address=5006,suspend=y'
+
+  JVMArgs << '-Xmx1000m'
+
+  //jpro server port
   port = 8080
+
 }
 ```
 
@@ -140,10 +209,11 @@ You can either download a template file [here](https://github.com/JPro-one/Hello
     <packaging>jar</packaging>
 
     <properties>
-        <jproVersion>2019.1.0</jproVersion>
+        <jpro.version>2019.2.1</jpro.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <javafx.version>11</javafx.version>
     </properties>
 
     <name>Hello JPro!</name>
@@ -156,12 +226,11 @@ You can either download a template file [here](https://github.com/JPro-one/Hello
       <plugin>
           <groupId>com.sandec.jpro</groupId>
           <artifactId>jpro-maven-plugin</artifactId>
-          <version>${jproVersion}</version>
+          <version>${jpro.version}</version>
           <configuration>
               <visible>false</visible>
               <JVMArgs>
-                  <JVMArg>arg1</JVMArg>
-                  <JVMArg>arg2</JVMArg>
+                  <!-- <JVMArg>your-args</JVMArg> -->
               </JVMArgs>
               <mainClassName>com.jpro.hellojpro.HelloJProFXML</mainClassName>
               <openingPath>/</openingPath>
@@ -174,14 +243,14 @@ You can either download a template file [here](https://github.com/JPro-one/Hello
     <pluginRepositories>
         <pluginRepository>
             <id>jpro - sandec repository</id>
-            <url>http://sandec.bintray.com/repo</url>
+            <url>https://sandec.bintray.com/repo</url>
         </pluginRepository>
     </pluginRepositories>
 
     <repositories>
         <repository>
             <id>jpro - sandec repository</id>
-            <url>http://sandec.bintray.com/repo</url>
+            <url>https://sandec.bintray.com/repo</url>
         </repository>
     </repositories>
 
@@ -189,9 +258,40 @@ You can either download a template file [here](https://github.com/JPro-one/Hello
 
     <dependencies>
         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>${javafx.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>${javafx.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>${javafx.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.sandec.jpro</groupId>
             <artifactId>jpro-webapi</artifactId>
-            <version>${jproVersion}</version>
+            <version>${jpro.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
@@ -434,12 +534,12 @@ buildscript {
     jcenter()
 
     maven {
-      url "http://sandec.bintray.com/repo"
+      url "https://sandec.bintray.com/repo"
     }
   }
 
   dependencies {
-    classpath 'com.sandec.jpro:jpro-plugin-gradle:2019.1.0'
+    classpath 'com.sandec.jpro:jpro-plugin-gradle:2019.2.1'
   }
 }
 
@@ -449,20 +549,50 @@ buildscript {
  */
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'com.google.osdetector'
 
 compileJava {
-  sourceCompatibility = 1.8
-  targetCompatibility = 1.8
+  sourceCompatibility = 11
+  targetCompatibility = 11
 }
 
 repositories {
   jcenter()
 }
 
+ext.platform = osdetector.os == 'osx' ? 'mac' : osdetector.os == 'windows' ? 'win' : osdetector.os
+
 dependencies {
-// Add your dependencies here, for example:
-// compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
+    // Add your dependencies here, for example:
+    // compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
+    compile "org.openjfx:javafx-base:11:$platform"
+    compile "org.openjfx:javafx-graphics:11:$platform"
+    compile "org.openjfx:javafx-controls:11:$platform"
+    compile "org.openjfx:javafx-fxml:11:$platform"
+    compile "org.openjfx:javafx-media:11:$platform"
+    compile "org.openjfx:javafx-web:11:$platform"
 }
+
+
+compileJava {
+  doFirst {
+    options.compilerArgs = [
+            '--module-path', classpath.asPath,
+            '--add-modules', 'javafx.fxml,javafx.controls'
+    ]
+  }
+}
+
+
+run {
+  doFirst {
+    jvmArgs = [
+            '--module-path', classpath.asPath,
+            '--add-modules', 'javafx.fxml,javafx.controls'
+    ]
+  }
+}
+
 
 /**
  ******************  jpro Configuration ******************
@@ -488,10 +618,6 @@ jpro {
   //jpro server port
   port = 8080
 
-  //jpro version (optional)
-  jproVersion = "2019.1.0"
-
-  openingPath = ""
 }
 ```
 
@@ -499,7 +625,7 @@ If the JPro starter does not find any maching name in the `jpro.conf`, then it w
 for a specified `mainClassName` in the `build.gradle` to be started instead.
 
 
-### Starting an app from pm.xml(Maven) 
+### Starting an app from pom.xml (Maven) 
 The `pom.xml` file of the HelloJPro project can be downloaded
 [here](https://github.com/JPro-one/HelloJPro-Maven/blob/master/pom.xml).  It looks like the following:
 
@@ -514,10 +640,11 @@ The `pom.xml` file of the HelloJPro project can be downloaded
     <packaging>jar</packaging>
 
     <properties>
-        <jproVersion>2019.1.0</jproVersion>
+        <jpro.version>2019.2.1</jpro.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <javafx.version>11</javafx.version>
     </properties>
 
     <name>Hello JPro!</name>
@@ -530,12 +657,11 @@ The `pom.xml` file of the HelloJPro project can be downloaded
       <plugin>
           <groupId>com.sandec.jpro</groupId>
           <artifactId>jpro-maven-plugin</artifactId>
-          <version>${jproVersion}</version>
+          <version>${jpro.version}</version>
           <configuration>
               <visible>false</visible>
               <JVMArgs>
-                  <JVMArg>arg1</JVMArg>
-                  <JVMArg>arg2</JVMArg>
+                  <!-- <JVMArg>your-args</JVMArg> -->
               </JVMArgs>
               <mainClassName>com.jpro.hellojpro.HelloJProFXML</mainClassName>
               <openingPath>/</openingPath>
@@ -548,14 +674,14 @@ The `pom.xml` file of the HelloJPro project can be downloaded
     <pluginRepositories>
         <pluginRepository>
             <id>jpro - sandec repository</id>
-            <url>http://sandec.bintray.com/repo</url>
+            <url>https://sandec.bintray.com/repo</url>
         </pluginRepository>
     </pluginRepositories>
 
     <repositories>
         <repository>
             <id>jpro - sandec repository</id>
-            <url>http://sandec.bintray.com/repo</url>
+            <url>https://sandec.bintray.com/repo</url>
         </repository>
     </repositories>
 
@@ -563,14 +689,43 @@ The `pom.xml` file of the HelloJPro project can be downloaded
 
     <dependencies>
         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>${javafx.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>${javafx.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>${javafx.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.sandec.jpro</groupId>
             <artifactId>jpro-webapi</artifactId>
-            <version>${jproVersion}</version>
+            <version>${jpro.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
-
-
 
 </project>
 ```
@@ -803,7 +958,7 @@ jpro {
                                       
   port = 8083                         // The web-socket app to use.  
 
-  jproVersion = "2019.1.0"            // The JPro version to use.  
+  jproVersion = "2019.2.1"            // The JPro version to use.  
 
   openURLOnStartup = false            // This prevents the browser from opening 
                                       // when jproRun is called.    
@@ -863,7 +1018,6 @@ Here an **example**:
       </jproReleaseFiles>
   </configuration>
 </plugin>
-}
 ```
 
 ### jpro.conf
@@ -1072,7 +1226,7 @@ the following statement:
 ```
 dependencies {
     ...
-    compile "com.sandec.jpro:jpro-webapi:2019.1.0"
+    compile "com.sandec.jpro:jpro-webapi:2019.2.1"
     ...
 }
 ```
@@ -1095,11 +1249,11 @@ the following statement:
 ```
 
 #### Getting WebAPI as a Jar
-You can download the WebAPI from our [repository](http://sandec.bintray.com/repo/com/sandec/jpro/). 
+You can download the WebAPI from our [repository](https://sandec.bintray.com/repo/com/sandec/jpro/). 
 
 This can be useful when you are using neither Maven nor Gradle.
 
-[Here is the download link for the latest version.](http://sandec.bintray.com/repo/com/sandec/jpro/jpro-webapi/2019.1.0/jpro-webapi-2019.1.0.jar)
+[Here is the download link for the latest version.](https://sandec.bintray.com/repo/com/sandec/jpro/jpro-webapi/2019.1.3/jpro-webapi-2019.1.3.jar)
 
 
 
@@ -1175,8 +1329,6 @@ or MacOS as deployment platforms for the backends right now, please contact us d
 for the JPro servers at time being is [Ubuntu 16.04](http://releases.ubuntu.com/16.04/).  
 Other requirements are:
 
- * JPro requires the Oracle-JRE. JPro requires javaFX, which is not always contained in OpenJDK.
- 
  * JavaFX requires some libraries to run in an headless environment. 
    Installing GTK and X11 is usually enough to run JavaFX.
  
@@ -1187,7 +1339,7 @@ Other requirements are:
 ## PREPARING LINUX FOR JPRO
 
 ### All linux versions
-Install Java8 from the Oracle page. You have to create an oracle account to download it.
+Install Java11 on your linux server. We recommend using [AdoptOpenJDK 11](https://adoptopenjdk.net/installation.html#x64_linux-jdk):
 
 
 ### Ubuntu 18.04:
@@ -1299,7 +1451,7 @@ You can also use [this popup](http://www.jfoenix.com/documentation.html#Dialog) 
 * Be careful with **statics**, because they would be shared between multiple instances 
 (interesting enough, there are use cases in which this fact can be utilized as a very useful feature. 
 But, it is important not to use them in the wrong way.) 
-* You can open **Stages** with the method `openStageAsPopup(Stage stage)` and `openStageAsTab(Stage stage)` of the [WebAPI](/api/2019.1.1/com/jpro/webapi/WebAPI.html).
+* You can open **Stages** with the method `openStageAsPopup(Stage stage)` and `openStageAsTab(Stage stage)` of the [WebAPI](/api/2019.1.2/com/jpro/webapi/WebAPI.html).
   An alternative is, to create new windows or dialogues by using a StackPane at the root of your application.
   We have an example about popups in our [sample-project](https://github.com/JPro-one/JPro-Samples/tree/master/popups).
 * The class WebView only works very limited with JPro. 
@@ -1310,8 +1462,7 @@ the **HTMLView**.
 
 
 ### Not yet supported JavaFX features 
-(this list refers to version 2019.1.1)
-* Canvas (It will be supprted in the next major release)
+(this list refers to version 2019.2.1)
 * MediaPlayer
 * The following Effect classes
     * Bloom
@@ -1329,7 +1480,7 @@ the **HTMLView**.
     * Shadow 
 * 3D
 * SwingNode
-* javafx.stage.FileChooser, please take a look at our [WebAPI](/api/2019.1.1/com/jpro/webapi/WebAPI.html#makeFileUploadNode-javafx.scene.Node-) and our [sample project](https://github.com/JPro-one/JPro-Samples) for an alternative. 
+* javafx.stage.FileChooser, please take a look at our [WebAPI](/api/2019.1.2/com/jpro/webapi/WebAPI.html#makeFileUploadNode-javafx.scene.Node-) and our [sample project](https://github.com/JPro-one/JPro-Samples) for an alternative. 
 * Clipboard
 * WebView (Supported in it's basic form, only. We recommend to use the 
 [HTMLView](/?page=docs/current/api), instead.)
@@ -1337,20 +1488,70 @@ the **HTMLView**.
 
 # CHANGELOG
 
+## 2019.2.X
+
+### 2019.2.1 (23. December 2019)
+
+### Minors:
+
+* Canvas now supports the the methods ‘drawImage’ and ‘setGlobalAlpha’.
+* We've backported the CSS-performance-improvements done to JavaFX to our JavaFXFork.
+* The ByteBuffer of 2d Images are now deleted when no longer needed.  It can be deactivated, though, by the following line in the jpro.conf: `jpro.deleteBufferOfImage=false`
+
+#### BugFixes
+* Fixed a bug in the Canvas implementation. In some situations, Canvas elements were rerendered without necessity.
+* Fixed a bug in the gradle plugin.
+ When using the command `gradle jproRun`, in some rare situations, two jars files with different javafx-versions were added to the classpath.
+* Fixed a bug related to the rendering of glyphs with our new rendering engine. The bug occurred when using FontAwesomeFX.
+* Fixed a behaviour bug which occurred when `userSelect` was set to active. The newline-character is now copied correctly with the rest of the text.
+* Elements of type ImageView can no longer be selected in the browser. We disabled it because the selection caused an unwanted blue effect.
+
+
+### 2019.2.0 (4. December 2019)
+
+#### Majors:
+ * Canvas support! 
+ Canvas requires at least Java(FX) 11.
+ Features not yet implemented for Canvas: Gradients, Images and Effects
+ 
+ * New generation rendering engine (with Canvas suppport)! Performance Improvements for new engine will follow soon!
+ 
+#### Minors:
+ * Google indexing is now working.
+   The problem was, the Google crawler claimed to support WebSocket.  But, it took a while until we realized, this was not the case.  We have now solved it differently.
+
+#### Bug fixes:
+
+ * Fixed exception for the case that an application was opened without an initial Scene.
+ * Fixed exception for the case that a WebAPI.requestLayout(Scene) was called with a Window with no Scene attached to it.
+ * Fixed a bug in the Maven plugin.
+    When using the command `mvn jpro:run`, in some rare situations, wrong jars were added to the classpath.
+    
+
 ## 2019.1.X
+
+
+### 2019.1.3 (24. September 2019)
+
+#### Improvements:
+ * Major performance-improvement for the javascript-client.
+
+#### Bug fixes:
+ * Fixed a bug with the SecurityManager in JPro, which prevents System.exit to shut down the whole server.
+ The bug had the effect, that the new api for Java11 java.net.http` didn't work properly. It probably also affected other libraries.
+ * Fixed a bug with the [FileUploader](/api/2019.1.2/com/jpro/webapi/WebAPI.FileUploader.html). 
+ There was a problem related to multiple uploads with the same filename. It caused an Exception to be thrown. This is now fixed.
 
 ### 2019.1.2 (11. September 2019)
 
 #### Features:
- * Added the property `selectedFileSize` to the [FileHandler](/api/2019.1.2/com/jpro/webapi/WebAPI.FileUploader.html).  DOKU “FileHandler”, Wo???
- * Added the attribute [timeUntilReconnect](/?page=docs/current/2.3/EMBEDDING_JPRO) to the JProTag. It specifies after how much time, the client tries to reconnect, when he didn't hear anything from the server.
+ * Added the property `selectedFileSize` to the [FileUploader](/api/2019.1.2/com/jpro/webapi/WebAPI.FileUploader.html).
+ * Added the attribute [timeUntilReconnect](/?page=docs/current/2.3/EMBEDDING_JPRO) to the JProTag. It specifies after how much time the client tries to reconnect when he didn't hear anything from the server.
 
 #### Bug fixes:
  * Fixed a performance regression that was introduced in 2019.1.0. It has a significant impact when many nodes are serialized in one and the same frame.
  * Eliminated the throwing of a superfluous exception. The text of the exception was like the following: `Popup cannot be cast to JavaFX.stage.Stage`
  * [#29](https://github.com/JPro-one/JPro-tickets/issues/29) Fixed a bug appearing when using JPro with Firefox. When the application was not in fullscreen, a node with effects was not rendered.
-
-
  * Fixed a bug when using the MavenPlugin. 
  Maven was downloading the artifacts which are required for the command `mvn jpro:release`, 
  even when this command was not called.
@@ -1755,7 +1956,7 @@ Should you find bugs in jpro, please inform us about any details through our
     * [CalendarFX](http://dlsc.com/products/calendarfx/).
     * [PreferencesFX](https://github.com/dlemmermann/PreferencesFX).
     * [FormsFX](https://github.com/dlemmermann/FormsFX).
-    * [FlexGanttFX](https://dlsc.com/products/flexganttfx/) (Using Canvas, therefore not fully supported by JPro, yet).
+    * [FlexGanttFX](https://dlsc.com/products/flexganttfx/).
 * [Harmonic Code](https://harmoniccode.blogspot.de/2018/02/friday-fun-lix-parallel-coordinates.html) is 
 an impressive and dynamic blog from the Java Champion [Gerrit Grunwald](https://twitter.com/hansolo_?lang=de), 
 which describes his cool components libraries.
