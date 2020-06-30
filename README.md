@@ -17,7 +17,7 @@ Our public **ticket system** can be found on [github](https://github.com/JPro-on
 
 [Here](https://github.com/JPro-one/JPro-Samples/) you can find some easy and useful samples.
 
-To get started and run your first app with JPro, you should execute the following **4 steps**:
+To get started and run your first app with JPro, you should execute the following **3 steps**:
 
     * Install Gradle
     * Create the Gradle script
@@ -49,7 +49,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.sandec.jpro:jpro-plugin-gradle:2019.2.1'
+    classpath 'com.sandec.jpro:jpro-plugin-gradle:2019.2.5'
   }
 }
 
@@ -131,32 +131,8 @@ jpro {
 }
 ```
 
-#### Step `3`. Create the JPro configuration file 
 
-This file is configured in [HOCON (Human-Optimized Config Object Notation)](https://github.com/lightbend/config/blob/master/HOCON.md), 
-which is a superset of JSON, and is optimized for writing configurations.
-
-
-The `jpro.conf` must be placed into the directory `<project-dir>/src/main/resources`.
-
-You can either download a **template file** 
-[here](https://raw.githubusercontent.com/JPro-one/HelloJPro/master/src/main/resources/jpro.conf) or just use the following:
-
-```groovy
-jpro.applications {
-  "myApp" = com.jpro.somepackage.SomeMain
-}
-```
-
-Make sure you use the same name specification for the `<jpro-app>` tag in the `index.html`, like 
-
-```groovy 
-<jpro-app href="/app/myApp" fullscreen="true"></jpro-app>
-```
-
-***TODO***
-
-#### Step `4`. Run the app 
+#### Step `3`. Run the app 
 
 Start a **Terminal session**, move to the **main project directory** and enter the command:
 
@@ -180,7 +156,7 @@ and you can [run it online](https://demos.jpro.one/helloworld.html).
 
 Our public **ticket system** can be found on [github](https://github.com/JPro-one/JPro-tickets). 
 
-To get started and run your first app with JPro, you should execute the following **4 steps**:
+To get started and run your first app with JPro, you should execute the following **3 steps**:
 
     * Install Maven
     * Create the Maven script
@@ -209,7 +185,7 @@ You can either download a template file [here](https://github.com/JPro-one/Hello
     <packaging>jar</packaging>
 
     <properties>
-        <jpro.version>2019.2.1</jpro.version>
+        <jpro.version>2019.2.5</jpro.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -301,32 +277,7 @@ You can either download a template file [here](https://github.com/JPro-one/Hello
 </project>
 ```
 
-#### Step `3`. Create the JPro configuration file 
-
-This file is configured in [HOCON (Human-Optimized Config Object Notation)](https://github.com/lightbend/config/blob/master/HOCON.md), 
-which is a superset of JSON, and is optimized for writing configurations.
-
-
-The `jpro.conf` must be placed into the directory `<project-dir>/src/main/resources`.
-
-You can either download a **template file** 
-[here](https://raw.githubusercontent.com/JPro-one/HelloJPro/master/src/main/resources/jpro.conf) or just use the following:
-
-```groovy
-jpro.applications {
-  "myApp" = com.jpro.somepackage.SomeMain
-}
-```
-
-Make sure you use the same name specification for the `<jpro-app>` tag in the `index.html`, like 
-
-```groovy 
-<jpro-app href="/app/myApp" fullscreen="true"></jpro-app>
-```
-
-*** TODO ***
-
-#### Step `4`. Run the app 
+#### Step `3`. Run the app 
 
 Start a **Terminal session**, move to the **main project directory** and enter the command:
 
@@ -539,7 +490,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.sandec.jpro:jpro-plugin-gradle:2019.2.1'
+    classpath 'com.sandec.jpro:jpro-plugin-gradle:2019.2.5'
   }
 }
 
@@ -640,7 +591,7 @@ The `pom.xml` file of the HelloJPro project can be downloaded
     <packaging>jar</packaging>
 
     <properties>
-        <jpro.version>2019.2.1</jpro.version>
+        <jpro.version>2019.2.5</jpro.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -958,7 +909,7 @@ jpro {
                                       
   port = 8083                         // The web-socket app to use.  
 
-  jproVersion = "2019.2.1"            // The JPro version to use.  
+  jproVersion = "2019.2.5"            // The JPro version to use.  
 
   openURLOnStartup = false            // This prevents the browser from opening 
                                       // when jproRun is called.    
@@ -1103,6 +1054,7 @@ The jpro-app tag has a set of **attributes**, which can be set to control the jp
   -------------------|---------------|----------------------
   href               |               |The URL of the application to be started.  It is either the URL of the App's websocket connection `"wss://yourServer.com/app/myAppName"`, or it's the relative URL `"/app/myAppName"`.
   loader             |               |Defines whether or not to activate the loading animation for this JPro-app. Valid values are: `"default"` `"none"`
+  loaderURL          |               |Defines a gif file which can be used to replace the standard loader.
   fullscreen         | "false"       |When true, the JPro app is resized to the entire page. It also **sets autofocus** to true.
   readonly           | "false"       |When true, the user can NOT do any data authoring to the scene.
   disableShadows     | "false"       |Disables all shadows in the JPro-renderer.  This might be useful, for rendering performance reasons.
@@ -1226,7 +1178,7 @@ the following statement:
 ```
 dependencies {
     ...
-    compile "com.sandec.jpro:jpro-webapi:2019.2.1"
+    compile "com.sandec.jpro:jpro-webapi:2019.2.5"
     ...
 }
 ```
@@ -1441,6 +1393,24 @@ This makes it very difficult to run JPro on Amazon Linux.
  }
  ```
 
+## DOCKER WITH JPRO
+It's quite easy to use JPro with Docker.
+The following content for a Dockerfile can be used to get an environment which is compatible with JPro:
+```
+FROM adoptopenjdk:11-hotspot-bionic
+RUN apt-get update
+RUN apt-get -y install xorg gtk2-engines libasound2 libgtk2.0-0
+```
+
+## PERFORMANCE TIPS
+
+There are some things that can be done to improve the performance for JPro.
+ * Avoid shadow effects. They require quite long to be rendered correctly.
+ * Minimize the number of nodes that are used to represent the scenegraph.
+ * Try to reuse existing Nodes instead of creating new instances. 
+ The controls TableView and ListView are good examples for reusing existing Nodes.
+
+
 
 ## JPRO CHECKLIST
 When using JPro, please be aware of the following important aspects:
@@ -1462,22 +1432,21 @@ the **HTMLView**.
 
 
 ### Not yet supported JavaFX features 
-(this list refers to version 2019.2.1)
+(this list refers to version 2019.2.5)
 * MediaPlayer
 * The following Effect classes
+    * Blend
     * Bloom
     * BoxBlur
     * ColorInput
     * DisplacementMap
-    * DropShadow (Supported, but slow)
     * Glow
     * ImageInput
-    * InnerShadow (Supported, but slow)
     * Lighting
     * MotionBlur 
     * PerspectiveTransform
     * Reflection
-    * Shadow 
+    * Shadow (is supported, but might be slow)
 * 3D
 * SwingNode
 * javafx.stage.FileChooser, please take a look at our [WebAPI](/api/2019.1.2/com/jpro/webapi/WebAPI.html#makeFileUploadNode-javafx.scene.Node-) and our [sample project](https://github.com/JPro-one/JPro-Samples) for an alternative. 
@@ -1490,18 +1459,87 @@ the **HTMLView**.
 
 ## 2019.2.X
 
+### 2019.2.5 (30. June 2020)
+#### Features:
+ * BoxShadows! JPro now uses box-shadows when possible.
+ This dramatically improves the performance of shadows.
+ * Added the method [openURL](http://localhost:8083/api/2019.2.5/com/jpro/webapi/WebAPI.html#openURL(java.lang.String)), [openURLAsTab](http://localhost:8083/api/2019.2.5/com/jpro/webapi/WebAPI.html#openURLAsTab(java.lang.String)) and [openURLAsPopup](http://localhost:8083/api/2019.2.5/com/jpro/webapi/WebAPI.html#openURLAsPopup(java.lang.String)) to the WebAPI.
+ * It's now possible to define an own loading animation as a gif. Just set the attribute `loaderURL` of the JProTag.
+#### Bufixes:
+ * Fixed a bug in the Maven plugin. 
+ When executing the command `mvn jpro:run` followed by the command `mvn package`, the changes done between the two calls were not correctly registered.  
+ * Fixed a bug related to cursor selection with Safari. In some situations the `select- `cursor was wrongly overlying text-elements.
+ * Fixed a bug related to a corner case using the clip property.
+ * Fixed a regression related to mouse-events. It broke the correct sorting of columns in the TableView.
+ * Fixed a bug in the attribute `disableShadows` for the JProTag.
+
+### 2019.2.4 (2. June 2020)
+#### Features
+ * Added the Method `getHeaders` to the WebAPI.
+ It makes all the HTTP-Headers provided to the WebSocket connection accessible.
+ * Reworked Shadows. The new implementation works reliably in all browsers.
+ 
+#### Bugfixes:
+ * The method `WebAPI.executeScript` no longer serializes the result of the provided javascript code.
+ Only `WebAPI.executeScriptWithListener` and `WebAPI.executeScriptWithReturn` are now serializing the result.
+ This avoids unnecessary exception due to unserializable results.
+ * Fixed a rendering bug happening with Chrome.
+ * Fixed a bug related to HTMLView. In some situations it was not possible to focus elements inside an HTMLView.
+ * In some situations, the HTMLView couldn't get MouseEvents. This is now fixed.
+ * Fixed an issue with MouseInput when JPro was embedded into another JProApplication using an HTMLView.
+ * Fixed a bug with Canvas when using Edge.
+
+### 2019.2.3 (20. April 2020)
+#### Features
+ * MouseEvents are now also generated while dragging an element outside of the Browser.
+ This is especially important when dragging the ScrollBar of a ScrollPane. It no longer hangs when leaving the browser.
+ 
+#### Minors: 
+ * Improved the support for JPro being embedded into an iframe.
+
+### Bugfixes
+* Dotted lines in Regions are now rendered correctly with the new rendering engine.
+* Fixed a bug related to uploading files using the WebAPI. 
+  It only happened when the server was running on Windows and the client was Edge.
+* Fixed TextInput for IPads with the latest version of IPadOS. 
+* ImageView is now rendered correctly when the image is `null`.
+* Fixed a rendering regression in Chrome.
+* Fixed a rendering bug in Chrome.
+* Fixed a rendering bug related to clip in Safari.
+
+
+### 2019.2.2 (4. February 2020 )
+
+#### Features
+* Gradients, Images and Effects now implemented for Canvas, as well.
+
+#### Minors:
+* The WebAPI now supports a method (`WebAPI.setLossless(image,false)`) to mark an image which can transferred with a lossy compression. 
+
+#### Bugfixes
+* Fixed a rare rendering bug. In some situations border/background of a region was rendered above it's children.
+* Fixed a rare rendering bug related to clips. In some situations some browsers didn't rendered the DOM correctly. These situations are now avoided.
+* Fixed a rare rendering bug related to clips. In some situations the clip wasn't applied properly.
+* Fixed a rendering bug which happened on Chrome when the users zoomed.  
+* Fixed `fxcontextmenu=true` for the JProTag. It was broken with the new rendering engine.
+* Fixed an exception in the browser when rendering a `javafx.scene.text.Text` element with null as the value for the text.
+* Fixed an exception in the browser when rendering a `javafx.scene.text.Rectangle` with an infinite expansion.
+* Fixed the hover property in the FileHandler of the WebAPI.
+* Fixed the "image drag problem" on Safari.
+* Added a minor performance improvement.
+
 ### 2019.2.1 (23. December 2019)
 
 ### Minors:
 
-* Canvas now supports the the methods ‘drawImage’ and ‘setGlobalAlpha’.
+* Canvas now supports the methods `drawImage` and `setGlobalAlpha`.
 * We've backported the CSS-performance-improvements done to JavaFX to our JavaFXFork.
-* The ByteBuffer of 2d Images are now deleted when no longer needed.  It can be deactivated, though, by the following line in the jpro.conf: `jpro.deleteBufferOfImage=false`
+* The ByteBuffer of 2D images are now deleted when no longer needed.  It can be deactivated, though, by the following line in the jpro.conf: `jpro.deleteBufferOfImage=false`
 
 #### BugFixes
-* Fixed a bug in the Canvas implementation. In some situations, Canvas elements were rerendered without necessity.
+* Fixed a bug in the Canvas implementation. In some situations, Canvas elements were rerendered allthough not needed.
 * Fixed a bug in the gradle plugin.
- When using the command `gradle jproRun`, in some rare situations, two jars files with different javafx-versions were added to the classpath.
+ When using the command `gradle jproRun`, in some rare situations, two jar files with different javafx-versions were added to the classpath.
 * Fixed a bug related to the rendering of glyphs with our new rendering engine. The bug occurred when using FontAwesomeFX.
 * Fixed a behaviour bug which occurred when `userSelect` was set to active. The newline-character is now copied correctly with the rest of the text.
 * Elements of type ImageView can no longer be selected in the browser. We disabled it because the selection caused an unwanted blue effect.
@@ -1510,9 +1548,9 @@ the **HTMLView**.
 ### 2019.2.0 (4. December 2019)
 
 #### Majors:
- * Canvas support! 
+ * **CANVAS SUPPORT**! 
  Canvas requires at least Java(FX) 11.
- Features not yet implemented for Canvas: Gradients, Images and Effects
+ Features not yet implemented for Canvas: Gradients, Images and Effects.
  
  * New generation rendering engine (with Canvas suppport)! Performance Improvements for new engine will follow soon!
  
@@ -1875,7 +1913,7 @@ Fixes for the **Maven** Plugin:
 # FAQ
 ## FAQ
 ```
-I'm using a lot of java libraries in my app, like controlsfx. Do they work in combination with jpro?
+I'm using a lot of java libraries in my app, like ControlsFX. Do they work in combination with jpro?
 ```
 * JPro works well with any java library.
 
@@ -1893,7 +1931,7 @@ But it's currently doesn't work with the Charm library, specifically when the cl
 ```
 Does the ScenicView work in combination with JPro?
 ```
-* Yes, the [ScenicView](http://fxexperience.com/scenic-view/) works without any problems.
+* Yes, the [ScenicView](https://github.com/JonathanGiles/scenic-view) works without any problems.
 
 ```
 How do I handle browser specific differences?
@@ -1913,7 +1951,7 @@ My application slows down over time. After a while it some times even crashes. W
 You can use tools like [VisualVM](https://visualvm.github.io/) to solve the issue in your application.
 
 ```
-How can i use a IDE for my JPro-project?
+How can I use a IDE for my JPro-project?
 ```
 The HelloWorld-Project is a simple gradle/java project, which can be imported by intellij or eclipse without any modifications.
 
@@ -1931,11 +1969,19 @@ Should you find bugs in jpro, please inform us about any details through our
 
 # Links
 
+## [JavaFX](https://en.wikipedia.org/wiki/JavaFX)
+
 ## [OpenJFX](https://openjfx.io/)
 
 ## [Ticket System](https://github.com/JPro-one/JPro-tickets)
 
 ## [JPro Samples](https://github.com/JPro-one/JPro-Samples/) 
+
+## [JavaFX Version 14 API](https://openjfx.io/javadoc/14/index.html)
+
+## [JavaFX Version 13 API](https://docs.oracle.com/en/java/javase/13/docs/api/index.html)
+
+## [JavaFX Version 12 API](https://docs.oracle.com/en/java/javase/12/docs/api/index.html)
 
 ## [JavaFX Version 11 API](https://openjfx.io/javadoc/11/index.html)
 
@@ -1948,7 +1994,7 @@ Should you find bugs in jpro, please inform us about any details through our
 ## Related projects
 
 * [Gluon](http://gluonhq.com/)'s useful Java technologies, including the [Gluon Mobile](http://gluonhq.com/products/mobile/) library. 
-* [ControlsFX](http://fxexperience.com/controlsfx/), a community library managed by 
+* [ControlsFX](https://github.com/controlsfx/controlsfx), a community library managed by 
 [Jonathan Giles](https://jonathangiles.net/) and 
 [Gluon](https://gluonhq.com/), with a set of controls.  In 2017 it received the 
 [Duke Choice Award](https://www.oracle.com/java/2017-dukes-choice-awards.html) for it's awesome work.
@@ -1957,20 +2003,24 @@ Should you find bugs in jpro, please inform us about any details through our
     * [PreferencesFX](https://github.com/dlemmermann/PreferencesFX).
     * [FormsFX](https://github.com/dlemmermann/FormsFX).
     * [FlexGanttFX](https://dlsc.com/products/flexganttfx/).
-* [Harmonic Code](https://harmoniccode.blogspot.de/2018/02/friday-fun-lix-parallel-coordinates.html) is 
+    * [WorkbenchFX](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX).
+    * [PickerFX](https://github.com/dlsc-software-consulting-gmbh/PickerFX).
+    * [GemsFX](https://github.com/dlsc-software-consulting-gmbh/GemsFX).
+    * [UnitFX](https://github.com/dlsc-software-consulting-gmbh/UnitFX).
+* [Harmonic Code](https://harmoniccode.blogspot.com/) is 
 an impressive and dynamic blog from the Java Champion [Gerrit Grunwald](https://twitter.com/hansolo_?lang=de), 
 which describes his cool components libraries.
-* [Dr. Michael Hoffer's](https://twitter.com/mihosoft?lang=de)  
-with lots of [interesting projects](https://mihosoft.eu). 
+* [Dr. Michael Hoffer's](https://twitter.com/mihosoft?lang=de) with lots of [interesting projects](https://mihosoft.eu). 
 
 A JPro helloworld project can be found [here](https://github.com/JPro-one/HelloJPro).
 
+## [Curated JavaFX links](https://github.com/mhrimaz/AwesomeJavaFX#libraries-tools-and-projects)
 
-## Blogs
+## Blogs & Tutorials
 
-[fxexperience.com](http://fxexperience.com/) is a very interesting blog from Jonathan Giles, previously Oracle, now Microsoft.
-
-[ScenicView](http://fxexperience.com/scenic-view/) represents a very useful debugging tool for UI development.
-
-
-The JavaFX Champion und JavaOne Rockstar [Dirk Lemmermann](http://dlsc.com/blog/)'s interesting blog.
+* The JavaFX Champion und JavaOne Rockstar [Dirk Lemmermann](http://dlsc.com/blog/)'s interesting blog.
+* [ScenicView](https://github.com/JonathanGiles/scenic-view) represents a very useful debugging tool for UI development.
+* [Official JavaFX tutorials](https://docs.oracle.com/javafx/2/get_started/jfxpub-get_started.htm) from Oracle.
+* Jakob Jenkov's many well written [JavaFX tutorials](http://tutorials.jenkov.com/javafx/index.html).
+* [TutorialsPoint](https://www.tutorialspoint.com/javafx/index.htm).
+* [Almas Baimagambetov](https://almasb.github.io/) [on Github](https://github.com/AlmasB), with cool games, tuturials and examples.
