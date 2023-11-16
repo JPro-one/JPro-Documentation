@@ -3249,6 +3249,8 @@ Should you find bugs in jpro, please inform us about any details through our
 
 ## [JPro Samples](https://github.com/JPro-one/JPro-Samples/)
 
+## [JavaFX Version 21 API](https://openjfx.io/javadoc/21/index.html)
+
 ## [JavaFX Version 17 API](https://openjfx.io/javadoc/17/index.html)
 
 ## [JavaFX Version 11 API](https://openjfx.io/javadoc/11/index.html)
