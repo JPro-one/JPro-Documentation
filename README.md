@@ -1283,7 +1283,6 @@ To use JPro on Ubuntu 16.04, one has to install the following packages:
 
 ```shell
 sudo apt-get update
-
 sudo apt-get install xorg gtk2-engines libasound2
 ```
 
@@ -1307,7 +1306,7 @@ sudo yum groupinstall "X Window System"
 
 To use JPro on Debian, one has to install the following packages:
 
-```
+```shell
 sudo apt-get install software-properties-common
 sudo apt-get update
 sudo apt-get install gtk2-engines xorg libasound2
@@ -1427,7 +1426,7 @@ and run `docker-compse up`
 
 The following Dockerfile can be used to get a container which is compatible with JPro.
 
-```
+```shell
 FROM adoptopenjdk:11-hotspot-focal
 RUN apt-get update
 RUN apt-get -y install xorg gtk2-engines libasound2 libgtk2.0-0
@@ -1501,7 +1500,6 @@ Please be aware that if the new configuration includes a `console` output, you h
 2. Set the `additivity` attribute for your `Console` logger to `false` as shown below:
 
 ```xml
-
 <logger name="Console" additivity="false"/>
 ```
 
@@ -1610,16 +1608,13 @@ When using JPro, please be aware of the following important aspects:
 
 The JPro Loadbalancer allows you to run multiple JPro Servers in parallel.  
 You can configure the **_maximum number of JPro Servers to automatically be started and stopped on demand_** by setting
-the property
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`one.jpro.loadbalancer.localServerCount`
+the property `one.jpro.loadbalancer.localServerCount`
 
 inside the file named `application.properties` to your required value. This provides you with a server landscape, which
 dynamically up- and down-scales according to current demand, but still respects an overall system size limit.
 
-You can configure the **_maximum number of sessions to be accepted per JPro Server_** by setting the property
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`one.jpro.loadbalancer.sessionsPerServer`
+You can configure the **_maximum number of sessions to be accepted per JPro Server_** by setting the property 
+`one.jpro.loadbalancer.sessionsPerServer`
 
 inside the file named `application.properties` to your required value. This sets the rule for when additional JPro
 Servers should be available.
@@ -1630,20 +1625,15 @@ With the JPro Loadbalancer you have the choice to set the **_maximum sessions to
 which case you ensure, that the JPro Server never needs to manage parallel sessions running inside the same JVM. In this
 case, you have fewer [rules to take into account](#jpro-checklist) when adapting
 existing desktop apps to JPro.
-You set this with the property
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`one.jpro.loadbalancer.sessionsPerServer = 1`
-
-inside the file named `application.properties`.
+You set this with the property `one.jpro.loadbalancer.sessionsPerServer = 1` inside the file named
+`application.properties`.
 
 #### Configure external servers
 
 When configuring the `external servers` setup, ensure to set the `one.jpro.loadbalancer.localServerCount` property to 0.
 To define additional external servers, utilize the prefix `one.jpro.loadbalancer.externalServer` followed by an index
-starting from 1.
-This allows you to add as many external servers as required. There is no need to configure other non required
-properties,
-as the JPro Loadbalancer will automatically load the default values.
+starting from 1. This allows you to add as many external servers as required. There is no need to configure other non
+required properties, as the JPro Loadbalancer will automatically load the default values.
 
 Use the following configuration as an example:
 
@@ -1688,7 +1678,7 @@ the [JPro Release command](#jpro-commands) (either `./gradlew jproRelease` or `.
 
 The file `application.properties` might look like the following:
 
-```
+```properties
 server.port = 8080
 one.jpro.loadbalancer.startPort = 8100
 one.jpro.loadbalancer.localServerCount = 4
@@ -1724,7 +1714,7 @@ It is also possible to configure different logging properties in the `applicatio
 
 ##### Example
 
-```
+```properties
 logging.level.one.jpro.loadbalancer=debug`
 logging.level.root=debug
 ```
@@ -1743,7 +1733,7 @@ The steps happen in the same folder, which is used to place the application.conf
 First, download the WindowsServiceWrapper exe, and rename it to the name you want your service to have.
 You can find the releases on its [GitHub Release page](https://github.com/winsw/winsw/releases).
 
-```
+```shell
 curl -L --output myapp.exe https://github.com/winsw/winsw/releases/download/v2.11.0/WinSW-x64.exe
 ```
 
@@ -1752,15 +1742,16 @@ Here is a template that you can use.
 
 ```
 <service>
-<!--  ID of the service. It should be unique across the Windows system -->
-<id>myapp</id>
-<!--  Display name of the service  -->
-<name>MyApp Service (powered by WinSW)</name>
-<!--  Service description  -->
-<description>This service is a service created from a minimal configuration</description>
-<!--  Path to the executable, which should be started  -->
-<executable>java</executable>
-<arguments>-jar "%BASE%\jpro-loadbalancer<version>.jar"</arguments>
+  <!--  ID of the service. It should be unique across the Windows system -->
+  <id>myapp</id>
+  <!--  Display name of the service  -->
+  <name>MyApp Service (powered by WinSW)</name>
+  <!--  Service description  -->
+  <description>This service is a service created from a minimal configuration</description>
+  <!--  Path to the executable, which should be started  -->
+  <executable>java</executable>
+  <arguments>-jar "%BASE%\jpro-loadbalancer<version>.jar"
+  </arguments>
 </service>
 ```
 
@@ -1771,7 +1762,7 @@ you can install the service:
 Some other available commands are:
 `myapp.exe uninstall`, `myapp.exe start`, `myapp.exe stop`, `myapp.exe restart`
 
-For more details, take a look at the [project homepage of winsw](https://github.com/winsw/winsw).
+For more details, take a look at the project homepage of [WinSW](https://github.com/winsw/winsw).
 
 # CHANGELOG
 
@@ -1963,7 +1954,7 @@ apply plugin: 'jpro-gradle-plugin'
 
 Previous Maven plugin configuration:
 
-```
+```xml
 <plugin>
       <groupId>com.sandec.jpro</groupId>
       <artifactId>jpro-maven-plugin</artifactId>
@@ -1976,7 +1967,7 @@ Previous Maven plugin configuration:
 
 New Maven plugin configuration:
 
-```
+```xml
 <plugin>
       <groupId>one.jpro</groupId>
       <artifactId>jpro-maven-plugin</artifactId>
