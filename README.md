@@ -1,6 +1,6 @@
 # GETTING STARTED
 
-RUNNING JPRO LOCALLY
+RUN JPRO LOCALLY
 --------------------
 
 ### Using Gradle
@@ -11,8 +11,8 @@ JPro offers a plugin for Gradle that enables you to effortlessly launch JPro fro
 JPro currently supports Gradle versions 4.x to 8.x. We recommend using version 8.x. Kotlin DSL is also supported.
 
 For a straightforward reference project, consider exploring
-the [HelloJPro-gradle](https://github.com/JPro-one/HelloJPro) example. You can
-also [run it online](https://demos.jpro.one/helloworld.html).
+the [HelloJPro-gradle](https://github.com/JPro-one/HelloJPro) example.
+You can also [run it online](https://demos.jpro.one/helloworld.html).
 
 Our public **ticket system** is available on [GitHub](https://github.com/JPro-one/JPro-tickets).
 
@@ -129,7 +129,7 @@ To get started and run your first app with JPro, you should execute the followin
 
 #### Step `1`. Install Maven
 
-Maven can be downloaded and installed [here](https://maven.apache.org/).
+Maven can be downloaded and installed [here](https://maven.apache.org).
 
 #### Step `2`. Create the Maven script
 
@@ -424,7 +424,7 @@ mvn jpro:run
 from the **main project directory** in your terminal window.
 
 See Step 4 of the
-[RUNNING JPRO LOCALLY](#using-gradle) and
+[RUN JPRO LOCALLY](#using-gradle) and
 [JPRO GRADLE COMMANDS](#using-gradle-2)
 for more details about how to run an app with `Gradle`.  
 See Step 4 of the
@@ -626,7 +626,7 @@ communication platform for your JPro server. To achieve this, follow these steps
 
 Make sure the `index.html`, the `jpro.conf` and your tool specific file (either `gradle.build` or `pom.xml`)
 are correctly setup to start your app. Check this by starting your JPro app as a normal app in your browser. See
-[RUNNING JPRO LOCALLY](#running-jpro-locally) for more details.
+[RUN JPRO LOCALLY](#run-jpro-locally) for more details.
 
 ### Step `2`. Start a local JPro server
 
@@ -679,11 +679,11 @@ Set up your app to be shared among external users.
 ### Step `1`. Setup your PC as a JPro server
 
 Make sure everything is prepared for your PC to host a JPro server, as explained
-[here](#running-jpro-locally).
+[here](#run-jpro-locally).
 
 ### Step `2`. Setup for starting through the index.html
 
-Modify the `index.html` to start your app with Screensharing, simply by
+Modify the `index.html` to start your app with **screensharing**, simply by
 adding an exclamation sign to your app specification in the `index.html`, like the following:
 
 ```
@@ -723,7 +723,7 @@ You are done!  Now, everyone can participate to one and the same session of your
 There are two ways of making Gradle accessible for your project:
 
 * the files `gradlew` and `gradlew.bat` are parts of your project
-  (see the [helloJPro example](https://github.com/JPro-one/HelloJPro))
+  (see the [HelloJPro example](https://github.com/JPro-one/HelloJPro))
 * you have downloaded and installed gradle
 
 The following ***JPro commands*** are supported by the `jpro-gradle-plugin`, to be started either from your IDE or
@@ -806,7 +806,7 @@ like the `mvn jpro:start` etc.
 
 ## CONFIGURING JPRO
 
-### build.gradle and pom.xml
+### Gradle and Maven
 
 The Gradle plugin is configured under the `jpro` tag of `build.gradle`.
 The Maven plugin is configured under the `<plugin>` tag of `pom.xml`.  
@@ -1557,7 +1557,7 @@ When using JPro, please be aware of the following important aspects:
 * Your app **must NOT block** the javafx-thread. Wait-, sleep-commands, showAndWaits in the javafx-thread are no-nos.
 * Be careful when using **dialog boxes**. Make sure they don't use showAndWait (see above).
   [Here](https://github.com/JPro-one/JPro-Samples/tree/master/popups) you can see how to create a JPro agnostic popup.
-  You can also use [this popup](http://www.jfoenix.com/documentation.html#Dialog) from the JPhoenix library.
+  You can also use [this popup](http://www.jfoenix.com/documentation.html#Dialog) from the JFoenix library.
 * Be careful with **statics**, because they would be shared between multiple instances
   (interesting enough, there are use cases in which this fact can be utilized as a very useful feature.
   But, it is important not to use them in the wrong way.)
