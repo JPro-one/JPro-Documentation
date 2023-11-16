@@ -3243,11 +3243,13 @@ Should you find bugs in jpro, please inform us about any details through our
 
 # Links
 
-## [JavaFX](https://openjfx.io/)
-
-## [Ticket System](https://github.com/JPro-one/JPro-tickets)
+## [JPro Platform](https://github.com/JPro-one/JPro-Platform)
 
 ## [JPro Samples](https://github.com/JPro-one/JPro-Samples/)
+
+## [JPro Tickets](https://github.com/JPro-one/JPro-Tickets)
+
+## [JavaFX](https://openjfx.io/)
 
 ## [JavaFX Version 21 API](https://openjfx.io/javadoc/21/index.html)
 
