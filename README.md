@@ -259,9 +259,9 @@ To run JPro on linux, the server must be configured correctly.
 
 Checkout the following chapters to configure your server correctly for JPro:
 
-[DEPLOYING JPRO](/docs/current/2.6/DEPLOYING_JPRO)
+[DEPLOYING JPRO](#deploying-jpro)
 
-[PREPARING LINUX FOR JPRO](/docs/current/2.7/PREPARING_LINUX_FOR_JPRO)
+[PREPARING LINUX FOR JPRO](#preparing-linux-for-jpro)
 
 #### Step `2`. Create the binary
 
@@ -295,9 +295,9 @@ To run JPro on linux, the server must be configured correctly.
 
 Checkout the following chapters to configure your server correctly for JPro:
 
-[DEPLOYING JPRO](/docs/current/2.6/DEPLOYING_JPRO)
+[DEPLOYING JPRO](#deploying-jpro)
 
-[PREPARING LINUX FOR JPRO](/docs/current/2.7/PREPARING_LINUX_FOR_JPRO)
+[PREPARING LINUX FOR JPRO](#preparing-linux-for-jpro)
 
 #### Step `2`. Create the binary
 
@@ -424,14 +424,14 @@ mvn jpro:run
 from the **main project directory** in your terminal window.
 
 See Step 4 of the
-[RUN JPRO LOCALLY](/docs/current/1.1/RUN_JPRO_LOCALLY/Using_Gradle/) and
-[JPRO GRADLE COMMANDS](/docs/current/2.1/JPRO_COMMANDS/Using_Gradle/)
+[RUNNING JPRO LOCALLY](#using-gradle) and
+[JPRO GRADLE COMMANDS](#using-gradle-2)
 for more details about how to run an app with `Gradle`.  
 See Step 4 of the
-[RUN JPRO LOCALLY](/docs/current/1.1/RUN_JPRO_LOCALLY/Using_Maven/) and
-[JPRO MAVEN COMMANDS](/docs/current/2.1/JPRO_COMMANDS/Using_Maven/)
+[RUN JPRO LOCALLY](#using-maven) and
+[JPRO MAVEN COMMANDS](#using-maven-2)
 for more details about how to run an app with `Maven`. See
-[CONFIGURING JPRO](/docs/current/2.2/CONFIGURING_JPRO)
+[CONFIGURING JPRO](#configuring-jpro)
 for more detailed information about `jpro.conf`.
 
 ### Starting an app from Gradle
@@ -626,7 +626,7 @@ communication platform for your JPro server. To achieve this, follow these steps
 
 Make sure the `index.html`, the `jpro.conf` and your tool specific file (either `gradle.build` or `pom.xml`)
 are correctly setup to start your app. Check this by starting your JPro app as a normal app in your browser. See
-[RUN JPRO LOCALLY](/docs/current/1.1/RUN_JPRO_LOCALLY/) for more details.
+[RUNNING JPRO LOCALLY](#running-jpro-locally) for more details.
 
 ### Step `2`. Start a local JPro server
 
@@ -679,7 +679,7 @@ Set up your app to be shared among external users.
 ### Step `1`. Setup your PC as a JPro server
 
 Make sure everything is prepared for your PC to host a JPro server, as explained
-[here](/docs/current/1.1/RUN_JPRO_LOCALLY).
+[here](#running-jpro-locally).
 
 ### Step `2`. Setup for starting through the index.html
 
@@ -963,7 +963,7 @@ jpro.applications {
 As you can see, there are 2 ways in which you can declare which apps to be runnable and which app to actually
 be started when you trigger a **starting option**. The different options for starting an app in the browser are:
 
-* using the `jproRun` or the `jpro:run` command (See [JPRO COMMANDS](/docs/current/2.1/JPRO_COMMANDS/))
+* using the `jproRun` or the `jpro:run` command (See [JPRO COMMANDS](#jpro-commands))
 * authoring a URL in the browser
 
 A **typical localhost URL** looks like the following:
@@ -1127,7 +1127,7 @@ There are two ways to get access to the WebAPI:
 * call `WebAPI.getWebAPI(javafx.stage.Window window)`.
 
 \
-For exact details about the API itself, please go to the [WebAPI-documentation](./docs/current/api).
+For exact details about the API itself, please go to the [WebAPI-documentation](https://www.jpro.one/api/2023.3.1/com/jpro/webapi/WebAPI.html).
 
 ### Using the WebAPI without JPro
 
@@ -1562,12 +1562,12 @@ When using JPro, please be aware of the following important aspects:
   (interesting enough, there are use cases in which this fact can be utilized as a very useful feature.
   But, it is important not to use them in the wrong way.)
 * You can open **Stages** with the method `openStageAsPopup(Stage stage)` and `openStageAsTab(Stage stage)` of
-  the [WebAPI](/api/2022.1.0/com/jpro/webapi/WebAPI.html).
+  the [WebAPI](https://www.jpro.one/api/2023.3.1/com/jpro/webapi/WebAPI.html).
   An alternative is, to create new windows or dialogues by using a StackPane at the root of your application.
   We have an example about popups in our [sample-project](https://github.com/JPro-one/JPro-Samples/tree/master/popups).
 * The class WebView only works very limited with JPro.
   It should be replaced with `com.jpro.webapi.HTMLView`.
-  [This sample ](https://github.com/JPro-one/JPro-Samples/tree/master/html-jpro) shows how to use
+  [This sample](https://github.com/JPro-one/JPro-Samples/tree/master/html-jpro) shows how to use
   the **HTMLView**.
 * JPro currently requires at Least Java(FX) 11 or newer.
 * JPro requires a JRE without JavaFX. This is the standard since Java11.
@@ -1597,10 +1597,10 @@ When using JPro, please be aware of the following important aspects:
 * FileChooser alternative is provided via the [JPro File](https://github.com/JPro-one/jpro-platform/tree/main/jpro-file)
   module.
 * Clipboard
-* [Dialog](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Dialog.html) (check out our checklist above
+* [Dialog](https://openjfx.io/javadoc/21/javafx.controls/javafx/scene/control/Dialog.html) (check out our checklist above
   for alternatives.)
 * WebView (Supported in its basic form, only. We recommend to use the
-  [HTMLView](/docs/current/api), instead.)
+  [HTMLView](https://www.jpro.one/api/2023.3.1/com/jpro/webapi/HTMLView.html), instead.)
 
 ## JPro Loadbalancer
 
@@ -1628,7 +1628,7 @@ Servers should be available.
 
 With the JPro Loadbalancer you have the choice to set the **_maximum sessions to be accepted per JPro Server_** to 1, in
 which case you ensure, that the JPro Server never needs to manage parallel sessions running inside the same JVM. In this
-case, you have fewer [rules to take into account](https://www.jpro.one/docs/current/2.11/JPRO_CHECKLIST) when adapting
+case, you have fewer [rules to take into account](#jpro-checklist) when adapting
 existing desktop apps to JPro.
 You set this with the property
 
@@ -1663,24 +1663,24 @@ one.jpro.loadbalancer.externalServer4=http://server4.example.com:9104
 #### Prerequisites
 
 Make sure you already have a JPro project and a zip file, created with
-the [JProRelease command](https://www.jpro.one/docs/current/2.1/JPRO_COMMANDS) (either `./gradlew jproRelease`
-or `./mvnw jpro:release`).
+the [JPro Release command](#jpro-commands) (either `./gradlew jproRelease` or `./mvnw jpro:release`).
 
 #### Steps
 
 1. Create for the JPro Loadbalancer a folder F.
 2. Go into the folder F.
-3. Download
-   the [JPro Loadbalancer](https://sandec.jfrog.io/artifactory/repo/one/jpro/jpro-loadbalancer/0.10.0/jpro-loadbalancer-0.10.0.jar)
+3. Download the [JPro Loadbalancer](https://sandec.jfrog.io/artifactory/repo/one/jpro/jpro-loadbalancer/0.10.0/jpro-loadbalancer-0.10.0.jar)
    into the folder F:  
-   `curl -LO https://sandec.jfrog.io/artifactory/repo/one/jpro/jpro-loadbalancer/0.10.0/jpro-loadbalancer-0.10.0.jar`
-5. Either create a new one or use an existing file named `application.properties`, located in the folder F and define
-   the properties in a .  
-   This file can be used, to configure the JPro Loadbalancer.
-6. Put the zip file, created by the [JProRelease command](https://www.jpro.one/docs/current/2.1/JPRO_COMMANDS), into the
-   folder F.
-7. Start the JPro Loadbalancer:  
-   `java -jar <jpro-loadbalancer-jar>`
+    ```shell
+    curl -LO https://sandec.jfrog.io/artifactory/repo/one/jpro/jpro-loadbalancer/0.10.0/jpro-loadbalancer-0.10.0.jar
+    ```
+4. Either create a new one or use an existing file named `application.properties`, located in the folder F and define
+   the properties there. This file can be used, to configure the JPro Loadbalancer.
+5. Put the zip file, created by the [JPro Release command](#jpro-commands), into the folder F.
+6. Start the JPro Loadbalancer:
+    ```shell
+    java -jar <jpro-loadbalancer-jar>
+    ```
 
 ### Configuration
 
@@ -1730,7 +1730,7 @@ logging.level.root=debug
 ```
 
 Because the JPro Loadbalancer is technically a simple [Spring Boot server](https://spring.io/projects/spring-boot), all
-the [configurations possible in Spring Boot](https://docs.spring.io/spring-boot/docs/2.1.7.RELEASE/reference/html/boot-features-logging.html)
+the [configurations possible in Spring Boot](https://docs.spring.io/spring-boot/docs/3.2.x/reference/html/features.html#features.logging)
 can also be applied.
 
 ### Running as a Windows Service
@@ -2762,7 +2762,7 @@ We no longer support JavaFX8 in the standard versions.
 * Fixed a bug with the SecurityManager in JPro, which prevents `System.exit` to shut down the whole server.
   The bug had the effect, that the new api for Java11 java.net.http` didn't work properly. It probably also affected
   other libraries.
-* Fixed a bug with the [FileUploader](/api/2022.1.0/com/jpro/webapi/WebAPI.FileUploader.html).
+* Fixed a bug with the [FileUploader](https://www.jpro.one/api/2023.3.1/com/jpro/webapi/WebAPI.FileUploader.html).
   There was a problem related to multiple uploads with the same filename. It caused an Exception to be thrown. This is
   now fixed.
 
@@ -2770,8 +2770,8 @@ We no longer support JavaFX8 in the standard versions.
 
 #### Features:
 
-* Added the property `selectedFileSize` to the [FileUploader](/api/2022.1.0/com/jpro/webapi/WebAPI.FileUploader.html).
-* Added the attribute [timeUntilReconnect](/docs/current/2.3/EMBEDDING_JPRO) to the JProTag. It specifies after how much
+* Added the property `selectedFileSize` to the [FileUploader](https://www.jpro.one/api/2023.3.1/com/jpro/webapi/WebAPI.FileUploader.html).
+* Added the attribute [timeUntilReconnect](#embedding-jpro) to the JPro tag. It specifies after how much
   time the client tries to reconnect when he didn't hear anything from the server.
 
 #### Bug fixes:
@@ -2944,7 +2944,7 @@ which will not be supported by Chrome much longer.
 
 * JProRelease: It's now possible to add additional files to the zip-file generated by `gradle jproRelease`
   or `mvn jpro:release`.
-  It's documented [here](https://www.jpro.one/docs/current/2.2/CONFIGURING_JPRO).
+  It's documented [here](#configuring-jpro).
 
 * We added a development mode to the JPro server.
   It is activated when the server is started from gradle/maven.
@@ -3056,7 +3056,7 @@ Fixes for the **Maven** Plugin:
 * On Edge and IE11, the caret of the hidden input-field is no longer visible.
 * Added the attribute `setPrintJSCommands`to the JProTag. When true, all js-commands executed through the WebAPI are
   logged on the browser console.
-  Documented in the chapter [EMBEDDING_JPRO](https://www.jpro.one/docs/current/2.3/EMBEDDING_JPRO).
+  Documented in the chapter [EMBEDDING JPRO](#embedding-jpro).
 * Small reduction of the js-file by about 15%.
 * A regression on mobile/iOS related to the text-input.
 * A bug was fixed on the IE11, that sometimes image resources were not loaded correctly.
