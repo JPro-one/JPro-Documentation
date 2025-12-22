@@ -83,7 +83,7 @@ buildscript {
   }
 
   dependencies {
-    classpath "one.jpro:jpro-gradle-plugin:2025.3.2"
+    classpath "one.jpro:jpro-gradle-plugin:2025.3.3"
   }
 }
 ```
@@ -132,7 +132,7 @@ The `gradle.properties` file defines all necessary version strings. It looks lik
 
 ```
 projectVersion = 1.0-SNAPSHOT
-jproVersion = 2025.3.2
+jproVersion = 2025.3.3
 javafxPluginVersion = 0.1.0
 javafxVersion = 24.0.2
 ```
@@ -171,7 +171,7 @@ You can either download a template file [here](https://github.com/JPro-one/Hello
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <properties>
-    <jpro.version>2025.3.2</jpro.version>
+    <jpro.version>2025.3.3</jpro.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>21</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -308,7 +308,7 @@ JPro properties below are available in both Gradle & Maven.
 
 | Property | Default value | Description |
 | --- | --- | --- |
-| jproVersion | The version of the `jpro-gradle-plugin` | The JPro-version to be used, for example: `2025.3.2` |
+| jproVersion | The version of the `jpro-gradle-plugin` | The JPro-version to be used, for example: `2025.3.3` |
 | javafxVersion | “auto” | Possible values are `auto`, `latest`, or a specific supported version number e.g. `21`. |
 | openingPath | “/” | On `jproRun` the Browser is automatically opened. This variable defines the path of the opened URL. |
 | port | 8080 | The port to which the server should listen. |
@@ -344,7 +344,7 @@ For Gradle, properties are set inside of `jpro { ... }`.
 jpro {
   visible = true
   port = 8083
-  jproVersion = "2025.3.2"
+  jproVersion = "2025.3.3"
   openURLOnStartup = false
   openingPath = "/fullscreen/"
 
@@ -751,7 +751,7 @@ The following table describes each parameter:
 
 ### Working with stages
 
-JavaFX **Stages** can be opened with the [WebAPI](/api/2025.3.2/jpro.webapi/com/jpro/webapi/WebAPI.html)’s `openStageAsPopup(Stage stage)` and `openStageAsTab(Stage stage)` methods. An alternative is to create new windows or dialogues using a StackPane at the root of your application.
+JavaFX **Stages** can be opened with the [WebAPI](/api/2025.3.3/jpro.webapi/com/jpro/webapi/WebAPI.html)’s `openStageAsPopup(Stage stage)` and `openStageAsTab(Stage stage)` methods. An alternative is to create new windows or dialogues using a StackPane at the root of your application.
 
 We have an example of implementing JPro-ready popups in this [sample-project](https://github.com/JPro-one/JPro-Samples/tree/master/popups).
 
@@ -896,6 +896,7 @@ The following attributes can be added to the HTML tag in order to customize how 
 | snapshot | “auto” | When set to true, the JPro app is rendered as a static image. On “auto” this only happens, when it’s indexed and WebSocket is not available. |
 | rememberInstanceIDInCookie | “false” | When set to true, only one instance of the app is created per browser. |
 | syncStageAttributes | “true” | When set to true, the stage title and icons attributes are synchronized between the JPro app and the browser. |
+| image-render-quality | “” | It's value is forwarded to the image elements of JPro. Possibles values are for example `smooth` and `pixelated`. |
 
 ## WebAPI Overview
 
@@ -907,7 +908,7 @@ For example, the WebAPI allows you to:
 - Get information about your current session, language, cookies, URL, etc.
 - Communicate bi-directionally between client-side Javascript and server-based java code.
 
-For details about the API itself, please reference the [WebAPI-documentation](/api/2025.3.2/jpro.webapi/com/jpro/webapi/WebAPI.html).
+For details about the API itself, please reference the [WebAPI-documentation](/api/2025.3.3/jpro.webapi/com/jpro/webapi/WebAPI.html).
 
 ### Using the WebAPI with JPro
 
@@ -926,7 +927,7 @@ The WebAPI can be imported as a jar without requiring JPro.
 ```jsx
 dependencies {
     ...
-    implementation "one.jpro:jpro-webapi:2025.3.2"
+    implementation "one.jpro:jpro-webapi:2025.3.3"
     ...
 }
 ```
@@ -948,7 +949,7 @@ dependencies {
 
 ### Downloading the WebAPI Jar
 
-If you need access to the WebAPI without Maven or Gradle, it can be downloaded from our [repository](https://sandec.jfrog.io/ui/native/repo/com/sandec/jpro/jpro-webapi/). Here is the [download link](https://sandec.jfrog.io/artifactory/repo/com/sandec/jpro/jpro-webapi/2025.3.2/jpro-webapi-2025.3.2.jar) for the latest version.
+If you need access to the WebAPI without Maven or Gradle, it can be downloaded from our [repository](https://sandec.jfrog.io/ui/native/repo/com/sandec/jpro/jpro-webapi/). Here is the [download link](https://sandec.jfrog.io/artifactory/repo/com/sandec/jpro/jpro-webapi/2025.3.3/jpro-webapi-2025.3.3.jar) for the latest version.
 
 # Deployment
 
@@ -995,7 +996,7 @@ They assume you have a linux server with the appropriate Java version installed;
 
 (22.04 and 20.04 also work)
 
-```jsx
+```docker
 FROM amd64/ubuntu:24.04
 
 RUN apt-get update
@@ -1003,12 +1004,19 @@ RUN apt-get install -y xorg libgtk-3-0
 RUN apt-get install -y wget software-properties-common
 
 # Add the Adoptium (Eclipse Temurin) APT repository and import the GPG key
-RUN wget -O - 
+RUN wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | apt-key add - && \
+add-apt-repository --yes https://packages.adoptium.net/artifactory/deb/
+
+# Install Temurin 21 JDK
+RUN apt-get update && \
+apt-get install -y temurin-21-jdk && \
+apt-get clean && \
+rm -rf /var/lib/apt/lists/*
 ```
 
 ### Debian Bookworm
 
-```jsx
+```docker
 FROM amd64/debian:bookworm
 
 RUN apt-get update
@@ -1018,12 +1026,21 @@ RUN apt-get install -y wget software-properties-common
 
 # Add the Adoptium (Eclipse Temurin) APT repository and import the GPG key
 RUN apt-get install -y wget apt-transport-https gnupg
-RUN wget -O - 
+RUN wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | apt-key add -
+RUN echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list
+# RUN wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | apt-key add - && \
+#     add-apt-repository --yes https://packages.adoptium.net/artifactory/deb/
+
+# Install Temurin 21 JDK
+RUN apt-get update && \
+    apt-get install -y temurin-21-jdk
+
+RUN apt-get clean
 ```
 
 ### Fedora 39
 
-```jsx
+```docker
 FROM amd64/fedora:39
 
 RUN dnf -y update
@@ -1032,7 +1049,15 @@ RUN dnf -y install @base-x
 
 RUN echo "[BellSoft]" > /etc/yum.repos.d/bellsoft.repo \
     && echo "name=BellSoft Repository" >> /etc/yum.repos.d/bellsoft.repo \
-    && echo "baseurl=
+    && echo "baseurl=https://yum.bell-sw.com" >> /etc/yum.repos.d/bellsoft.repo \
+    && echo "enabled=1" >> /etc/yum.repos.d/bellsoft.repo \
+    && echo "gpgcheck=1" >> /etc/yum.repos.d/bellsoft.repo \
+    && echo "gpgkey=https://download.bell-sw.com/pki/GPG-KEY-bellsoft" >> /etc/yum.repos.d/bellsoft.repo
+
+RUN cat /etc/yum.repos.d/bellsoft.repo
+
+RUN dnf -y update
+RUN dnf -y install bellsoft-java21
 ```
 
 ## Nginx
@@ -1170,9 +1195,9 @@ one.jpro.loadbalancer.externalServer4=http://server4.example.com:9104
 
 ### Running your app with the loadbalancer
 
-1. Create a new folder F and download the [JPro Loadbalancer](https://sandec.jfrog.io/artifactory/repo/one/jpro/jpro-loadbalancer/2025.3.2/jpro-loadbalancer-2025.3.2.jar) into it:
+1. Create a new folder F and download the [JPro Loadbalancer](https://sandec.jfrog.io/artifactory/repo/one/jpro/jpro-loadbalancer/2025.3.3/jpro-loadbalancer-2025.3.3.jar) into it:
     ```shell
-    curl -LO https://sandec.jfrog.io/artifactory/repo/one/jpro/jpro-loadbalancer/2025.3.2/jpro-loadbalancer-2025.3.2.jar
+    curl -LO https://sandec.jfrog.io/artifactory/repo/one/jpro/jpro-loadbalancer/2025.3.3/jpro-loadbalancer-2025.3.3.jar
     ```
 2. Create, or download from a template, a file named `application.properties` in the folder F. This file will be used to configure the JPro Loadbalancer.
 3. Put the zip file created by the [JPro Release command](https://www.jpro.one/docs/current/2.1/JPRO_COMMANDS) into the folder F.
@@ -1308,3 +1333,76 @@ Some other available commands are:
 `myapp.exe uninstall`, `myapp.exe start`, `myapp.exe stop`, `myapp.exe restart`
 
 For more details, take a look at the project homepage of [WinSW](https://github.com/winsw/winsw).
+
+# QF-Test Integration
+##  The JPro Integration Library - jpro-utils.qft
+
+The **jpro-utils.qft** library enables QF-Test to run automated tests directly
+against **JPro applications**, similar to testing standard desktop JavaFX apps.
+
+It automatically:
+- starts your JPro server,
+- launches a browser containing your JPro UI,
+- exposes it to QF-Test for automated testing.
+
+---
+
+### API Documentation
+
+Full API documentation:  
+**→ [[API Documentation](../../docs/jpro-utils_pkgdoc.html)]**
+
+You can also read the package/procedure annotations directly in the `jpro-utils.qft` file.
+
+---
+
+### High-Level Overview
+
+#### 1. `jpro.server` – Starting the JPro Server
+QF-Test launches the JPro server (your JavaFX backend) and waits until it is ready.
+
+- QF-Test calls this the **jproServer client**.
+- Procedures are located under the **`jpro.server`** package.
+
+#### 2. `jpro.client` – Launching the Browser
+QF-Test starts a browser and loads your JPro application URL.
+
+- QF-Test calls this the **jproClient client**.
+- Procedures are located under the **`jpro.client`** package.
+
+---
+
+### Quickstart Guide
+
+#### 1. Include the Library
+Add `jpro-utils.qft` as an *Included file* (just like `qfs.qft`).
+
+#### 2. (Optional) Add Conditional Execution
+If your suite also tests non-JPro apps, wrap the JPro setup in a condition.
+
+#### 3. Add the `jpro.running` Dependency
+Attach the dependency to your Testcase or TestcaseSet and configure:
+
+- **dir**  
+  Folder from which the JPro run command is executed  
+  (absolute or relative to your `.qft` file)
+
+- **command**  
+  Command that starts your JPro application  
+  Example: `./gradlew jproRun`
+
+- **serverAddress**  
+  Address where the JPro server will run  
+  Example: `http://localhost:8080`
+
+- **browser**  
+  Browser to open the JPro UI in  
+  Example: `chrome`
+
+---
+
+### Writing Tests
+
+Once the JPro server and browser client are running, write your tests as usual:
+QF-Test will recognize windows, components, and UI structures of your JPro
+application just like a normal JavaFX or web interface.%                                                                                                                            
